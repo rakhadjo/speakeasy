@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>speakeasy</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+        <form>
+            <!--<input type="text" name="speech_text" id="speech_text_input">-->
+            <div><textarea name="speech_text" id="speech_text_input" autofocus></textarea></div>
+            <button type="button" id="speech_text_button">Submit</button>
+        </form>
+        <div class="copyright_div">
+            <p class="copyright">©X4</p>
+        </div>
+    </body>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+</html>
