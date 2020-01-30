@@ -1,0 +1,12 @@
+If it's the first time running the server after cloning the repo, do:
+bash setup.sh
+
+Afterwards, if you want to run the server, do:
+bash run.sh
+
+REMINDERS:
+Don't amuse yourself with the speaking too much. I am still not sure on the limitations of the api free trial.
+
+Run all of these scripts from the root repository directory (group_x4)
+
+I am assuming all of you will be using linux-like enviroments to run this. If you're using windows, I presume you can use WSL.
