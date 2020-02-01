@@ -19,17 +19,16 @@ body {
 	left: 0;
 	background-color: #A30000;
 	overflow-x: hidden;
-	padding-top: 150px;
 }
 
 /*nav bar: pages settings*/
 .sidenav a {
-	padding: 6px 8px 10px 16px;
+	padding: 20px 10px 20px 10px;
 	text-decoration: none;
 	font-size: 25px;
 	color: #F6D6D6;
 	display: block;
-	text-align-last: center;
+	text-align: center;
 	cursor: pointer;
 }
 
@@ -37,6 +36,23 @@ body {
 .sidenav a:hover {
 	color: #F6D6D6;
 	background-color: #D46A6A;
+}
+
+#login_link {
+	position: fixed;
+	bottom: 0;
+	left: 0px;
+	width: 180px;;
+}
+
+#logoimage {
+	width:80%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	height: 20%;
 }
 
 .main {
@@ -51,12 +67,14 @@ body {
 <body>
 
 <div class="sidenav">
-	<a href="#LOGO">LOGO</a>
+	<img src="../graphics/logo.png" id = "logoimage">
+	
 	<a href="Speak.html">Speak</a>
 	<a href="about_us.html">About Us</a>
 	<a href="profile.html">Profile</a>
-	<!-- idk how to make the login page at the bottom yet -->
-	<a href="login_page.html">Login/Sign Up</a>
+	
+	<a href="login_page.html" id="login_link">Login/Sign Up</a>
+
 </div>
 
 <div class="main">
