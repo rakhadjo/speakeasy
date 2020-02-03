@@ -1,5 +1,7 @@
 # Team git repo for X4
 
+Idk if we actually want to use this format, It seemed easier to just use one branch
+
 We have 2 main branches, develop and master. Different branches for features will branch from 'develop'.
 
 ## Feature branches
