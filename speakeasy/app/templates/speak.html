@@ -3,75 +3,13 @@
 <head>
 	<meta charset="utf-8">
 	<title>Speak</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-	font-family: "Lato", sans-serif;
-}
-
-h1 {
-	color: #730000;
-}
-
-
-/*nav bar (navigation bar)*/
-.sidenav {
-	height: 100%;
-	width: 200px;
-	position: fixed;
-	z-index: 1;
-	top: 0;
-	left: 0;
-	background-color: #A30000;
-	overflow-x: hidden;
-}
-
-/*nav bar: pages settings*/
-.sidenav a {
-	padding: 20px 10px 20px 10px;
-	text-decoration: none;
-	font-size: 25px;
-	color: #F6D6D6;
-	display: block;
-	text-align: center;
-	cursor: pointer;
-}
-
-/*nav bar: pages, when cursor on them*/
-.sidenav a:hover {
-	color: #F6D6D6;
-	background-color: #D46A6A;
-}
-
-#login_link {
-	position: fixed;
-	bottom: 0;
-	left: 0px;
-	width: 180px;;
-}
-
-#logoimage {
-	width:80%;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	padding-top: 20px;
-	padding-bottom: 20px;
-}
-
-.main {
-	margin-left: 200px; /* Same as the width of the sidenav */
-	font-size: 20px; /* Increased text to enable scrolling */
-	padding: 0px 10px;
-	color: black;
-}
-
-</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/mainstyles.css') }}">
 </head>
 <body>
 
 <div class="sidenav">
-	<img src="../graphics/logo.png" id = "logoimage">
+	<img src="{{ url_for('static', filename='pictures/logo.png') }}" id = "logoimage">
 	
 	<a href="Speak.html">Speak</a>
 	<a href="about_us.html">About Us</a>

@@ -1,4 +1,4 @@
-from flask import render_template, request, make_response
+from flask import render_template, request, make_response, jsonify
 from google.cloud import texttospeech
 from app import app, speech_client
 
@@ -6,13 +6,21 @@ from app import app, speech_client
 def index():
     return render_template("index.html")
 
-@app.route("/keybind")
-def keybind():
-    return render_template("keybind.html")
+@app.route("/about_us")
+def about_us():
+    return render_template("about_us.html")
 
-@app.route("/design")
-def design():
-    return render_template("design.html")
+@app.route("/login_page")
+def login_page():
+    return render_template("login_page.html")
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
+
+@app.route("/newspeak")
+def newspeak():
+    return render_template("speak.html")
 
 @app.route("/speak", methods=["POST"])
 def speak():
@@ -33,8 +41,6 @@ def speak():
     response = make_response(google_response.audio_content)
     response.headers['Content-Type'] = 'audio/mp3'
     response.headers['Content-Disposition'] = 'attachment; filename=sound.mp3'
-    with open("output.mp3", "wb") as out:
-        out.write(google_response.audio_content)
     return response
 
 @app.route("/suggest", methods=["POST"])
