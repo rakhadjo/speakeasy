@@ -7,17 +7,19 @@ function windowKeydownHandler(e) {
         if (e.target.id == "speech_text_input") {
             e.preventDefault();
             play_mp3(e.target.value);
+
             return false;
         }
     } else if (e.keyCode == 32) {
 		if (e.target.id == "speech_text_input") {
-			//There should be much more checks
+			//There should be much more checks in order to determine whether to send
 			let words = e.target.value.split(" ");
 			let word = words[words.length - 1];
 			update_suggested_words(word);
 			return false;
 		}
     }
+
 }
 
 function handler(e) {
@@ -60,6 +62,7 @@ function update_suggested_words(word) {
 }
 
 function display_words(words) {
+
 	for (let i = 1; i <= 3; i++) {
 		let span = document.getElementById("suggest" + String(i));
 		span.textContent = words[i - 1];

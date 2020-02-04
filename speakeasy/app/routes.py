@@ -37,12 +37,10 @@ def speak():
     response.headers['Content-Disposition'] = 'attachment; filename=sound.mp3'
     with open("output.mp3", "wb") as out:
         out.write(google_response.audio_content)
-    print("sound")
     return response
 
 @app.route("/suggest", methods=["POST"])
 def suggest():
     user_word = request.get_json()["user_word"]
     suggested_words = [user_word + str(i) for i in range(3)]
-    print(suggested_words)
     return jsonify(suggested_words=suggested_words)
