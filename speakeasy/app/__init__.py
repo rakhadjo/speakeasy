@@ -4,4 +4,4 @@ from google.cloud import texttospeech
 app = Flask(__name__)
 speech_client = texttospeech.TextToSpeechClient()
 
-from app import routes
+from app import routes, api_routes
