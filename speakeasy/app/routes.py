@@ -37,4 +37,8 @@ def speak():
         out.write(google_response.audio_content)
     return response
 
-    
+@app.route("/suggest", methods=["POST"])
+def suggest():
+    user_word = request.get_json()["user_word"]
+    suggested_words = [user_word + str(i) for i in range(3)]
+    return jsonify(suggested_words=suggested_words)
