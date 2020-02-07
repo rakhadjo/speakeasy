@@ -5,6 +5,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
 speech_client = texttospeech.TextToSpeechClient()
 
+#Commenting out so others can test their parts without issues
+"""
 connection = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -13,6 +15,7 @@ connection = mysql.connector.connect(
 )
 
 cursor = connection.cursor()
+"""
 
 
 from app import routes, api_routes
