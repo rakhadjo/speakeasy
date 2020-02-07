@@ -1,7 +1,7 @@
 from flask import render_template, request, jsonify
 from app import app
-import mysql.connector
-from app.forms import LoginForm
+#import mysql.connector
+#from app.forms import LoginForm
 
 @app.route("/")
 def index():
@@ -22,13 +22,9 @@ def login_page():
 #Temporary for testing
 @app.route("/login")
 def login():
-    form = LoginForm()
-    return render_template("login.html", title="Sign in", form=form)
+    #form = LoginForm()
+    return render_template("login.html", title="Sign in")#, form=form)
 
 @app.route("/profile")
 def profile():
     return render_template("profile.html")
-
-@app.route("/newspeak")
-def newspeak():
-    return render_template("speak.html")

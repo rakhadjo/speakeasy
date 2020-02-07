@@ -1,9 +1,9 @@
-<html>
-    <head>
-        <title>speakeasy</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    </head>
-    <body>
+{% extends "base.html" %}
+
+{% block title %}SpeakEasy{% endblock %}
+
+{% block content %}
+	<body>
 		<div>
 			<span id="suggest1">Hello</span>
 			<span id="suggest2">This</span>
@@ -19,4 +19,4 @@
         </div>
     </body>
     <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
-</html>
+{% endblock %}
