@@ -5,9 +5,11 @@ from app.forms import LoginForm
 
 @app.route("/")
 def index():
+    """
     data = db.magic #GET THE KEYBOARD DATA WITH 3 PHRASES BASED ON THE CURRENT USER
     keyboards = {}
-    return render_template("index.html", keyboards=keyboards)
+    """
+    return render_template("index.html")
 
 @app.route("/about_us")
 def about_us():
