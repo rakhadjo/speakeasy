@@ -3,7 +3,9 @@ from app import app
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    data = db.magic #GET THE KEYBOARD DATA WITH 3 PHRASES BASED ON THE CURRENT USER
+    keyboards = {}
+    return render_template("index.html", keyboards=keyboards)
 
 @app.route("/about_us")
 def about_us():
