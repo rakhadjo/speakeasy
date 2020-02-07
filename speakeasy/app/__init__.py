@@ -1,5 +1,6 @@
 from flask import Flask
 from google.cloud import texttospeech
+import mysql.connector
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
