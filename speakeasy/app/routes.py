@@ -9,7 +9,12 @@ def index():
     data = db.magic #GET THE KEYBOARD DATA WITH 3 PHRASES BASED ON THE CURRENT USER
     keyboards = {}
     """
-    return render_template("index.html")
+    keyboards = {
+            "U+0FCA": ["Hello world", "This is a test", "test test"],
+            "U+231A": ["blablabla", "hihihi", "huhuhuhuh"],
+            "U+2328": ["zaxzaz", "blop blop", "jujujuju"]
+    }
+    return render_template("index.html", keyboards=keyboards)
 
 @app.route("/about_us")
 def about_us():
