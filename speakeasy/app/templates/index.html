@@ -4,22 +4,40 @@
 
 {% block content %}
 
+<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+
+	<h1>Type and Be Heard</h1>
+
 	<div class="column70">
-		<h1>Speak</h1>
 		<form>
             	<!--<input type="text" name="speech_text" id="speech_text_input">-->
-            	<div><textarea name="speech_text" id="speech_text_input" autofocus></textarea></div>
+            	<textarea name="speech_text" id="speech_text_input" autofocus></textarea>
         	</form>
+
+		<div class="keyboards">
+			<button>&#9824</button>
+			<button>&#9824</button>
+			<button>&#9824</button>
+			<button>&#9824</button>
+			<button>&#9824</button>
+		</div>
+
+
 	</div>
 
 
 	<div class="column30">
 		<div class="predictwords">
+			<span class="bullet">&nbsp1&nbsp</span>
 			<span id="suggest1">Hello</span>
+			<hr>
+			<span class="bullet">&nbsp2&nbsp</span>
 			<span id="suggest2">This</span>
+			<hr>
+			<span class="bullet">&nbsp3&nbsp</span>
 			<span id="suggest3">Would</span>
 		</div>
 	</div>
 
-    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
 {% endblock %}
