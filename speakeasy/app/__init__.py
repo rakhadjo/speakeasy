@@ -1,19 +1,16 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 from google.cloud import texttospeech
-import mysql.connector
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:password@localhost/speakeasy"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 speech_client = texttospeech.TextToSpeechClient()
 
-connection = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd="password",
-    database="speakeasy"
-)
+db = SQLAlchemy(app)
+login = LoginManager(app)
+login.login_view = "login"
 
-cursor = connection.cursor()
-
-
-from app import routes, api_routes
+from app import routes, api_routes, models

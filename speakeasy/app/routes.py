@@ -1,7 +1,9 @@
-from flask import render_template, request, jsonify
-from app import app
-import mysql.connector
-from app.forms import LoginForm
+from flask import render_template, request, jsonify, url_for, redirect
+from app import app, db
+from flask_login import current_user, login_user, logout_user, login_required
+from werkzeug.urls import url_parse
+from app.models import User
+from app.forms import LoginForm, RegistrationForm
 
 @app.route("/")
 def index():
@@ -10,6 +12,7 @@ def index():
     sql_1 = "SELECT keyboard_id "
     keyboards = {}
     '''
+    """
     username = "rakhadjo" #username=None
     if username: #session["username"]
         sql_1 = "SELECT user_id FROM users WHERE username = '" + username + "';"
@@ -29,9 +32,10 @@ def index():
             idx = idx + 1
             keyboards.update( {"phrases_" + str(idx) : phrase_list} )
     else:
-        keyboards = {
-            "phrases_0": ["Hello world", "How are you", "This is rakhadjo"]
-        }
+    """
+    keyboards = {
+        "phrases_0": ["Hello world", "How are you", "This is rakhadjo"]
+    }
     return render_template("index.html", keyboards=keyboards)
 
 @app.route("/about_us")
@@ -40,15 +44,45 @@ def about_us():
 
 @app.route("/login_page")
 def login_page():
+    #This is to be removed
     return render_template("login_page.html")
 
-#Temporary for testing
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for("index"))
     form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            return redirect(url_for('login'))
+        login_user(user)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('index')
+        return redirect(next_page)
     return render_template("login.html", title="Sign in", form=form)
 
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("index"))
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Register', form=form)
+
 @app.route("/profile")
+@login_required
 def profile():
     return render_template("profile.html")
 
