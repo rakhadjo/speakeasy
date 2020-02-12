@@ -4,33 +4,56 @@
 
 {% block content %}
 
-<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% set keyboardkeys = keyboards.keys()|list %}
 
+<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script>
+	function switchKeyboard(keyboardnum) {
+		for (let i = 0; i < {{ keyboardkeys|length }}; i++) {
+			let keyboard = document.getElementById("keyboard" + String(i));
+			if (keyboardnum == i) {
+				keyboard.style.display = "block";
+			} else {
+				keyboard.style.display = "none";
+			}
+		}
+	}
+</script>
 
 	<h1>Type and Be Heard</h1>
 
 	<div class="column70">
 		<form>
-            	<!--<input type="text" name="speech_text" id="speech_text_input">-->
-            	<textarea name="speech_text" id="speech_text_input" autofocus></textarea>
-        	</form>
+      <!--<input type="text" name="speech_text" id="speech_text_input">-->
+      <textarea name="speech_text" id="speech_text_input" autofocus></textarea>
+    </form>
 
 		<div class="keyboards">
-			{% for keyboard in keyboards %}
-				<button>&#x{{ keyboard[2:] }}</button>
+			{% for i in range(keyboardkeys|length) %}
+				<button onClick="switchKeyboard({{ i }})">&#x{{ keyboardkeys[i][2:] }}</button>
 			{% endfor %}
 		</div>
 
 		<div class="phrases">
-			{% set keyboardkeys = keyboards.keys()|list %}
-			<span class="bullet">&nbsp1&nbsp</span>
-			<span id="phrase1">{{ keyboards[keyboardkeys[0]][0] }}</span>
-			<hr>
-			<span class="bullet">&nbsp2&nbsp</span>
-			<span id="phrase1">{{ keyboards[keyboardkeys[0]][1] }}</span>
-			<hr>
-			<span class="bullet">&nbsp3&nbsp</span>
-			<span id="phrase1">{{ keyboards[keyboardkeys[0]][2] }}</span>
+
+			{% for i in range(keyboardkeys|length) %}
+
+			<div id="keyboard{{ i }}">
+				<span class="bullet">&nbsp1&nbsp</span>
+				<span>{{ keyboards[keyboardkeys[i]][0] }}</span>
+				<hr>
+				<span class="bullet">&nbsp2&nbsp</span>
+				<span>{{ keyboards[keyboardkeys[i]][1] }}</span>
+				<hr>
+				<span class="bullet">&nbsp3&nbsp</span>
+				<span>{{ keyboards[keyboardkeys[i]][2] }}</span>
+			</div>
+
+			{% endfor %}
+
+			<script>switchKeyboard(0)</script>
+
+
 		</div>
 
 
