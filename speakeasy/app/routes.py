@@ -1,41 +1,20 @@
 from flask import render_template, request, jsonify, url_for, redirect
-from app import app, db
+from app import app, db, DEFAULT_KEYBOARDS
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
-from app.models import User
+from app.models import User, UserKeyboard, Keyboard
 from app.forms import LoginForm, RegistrationForm
 
 @app.route("/")
 def index():
-    '''
-    # data = db.magic #GET THE KEYBOARD DATA WITH 3 PHRASES BASED ON THE CURRENT USER
-    sql_1 = "SELECT keyboard_id "
-    keyboards = {}
-    '''
-    """
-    username = "rakhadjo" #username=None
-    if username: #session["username"]
-        sql_1 = "SELECT user_id FROM users WHERE username = '" + username + "';"
-        cursor.execute(sql_1)
-        result = cursor.fetchall()[0]
-        user_id = str(result[0])
-        sql_2 = "SELECT keyboard_id FROM user_keyboards WHERE user_id = " + user_id + " ;"
-        cursor.execute(sql_2)
-        result = cursor.fetchall()
-        keyboards = {}
-        idx = -1
-        for x in result:
-            sql_4 = "SELECT phrase1, phrase2, phrase3 FROM keyboards WHERE keyboard_id = " + str(x[0]) + ";"
-            cursor.execute(sql_4)
-            result2 = cursor.fetchall()[0]
-            phrase_list = [result2[0], result2[1], result2[2]]
-            idx = idx + 1
-            keyboards.update( {"phrases_" + str(idx) : phrase_list} )
+    if current_user.is_authenticated:
+        user_keyboards = UserKeyboard.query.filter_by(user_id=current_user.id)
+        keyboard_ids = (uk.keyboard_id for uk in user_keyboards)
+        keyboard_list = (Keyboard.query.filter_by(id=id).first() for id in keyboard_ids)
+        keyboards = {k.icon:[k.phrase1, k.phrase2, k.phrase3] for k in keyboard_list}
     else:
-    """
-    keyboards = {
-        "phrases_0": ["Hello world", "How are you", "This is rakhadjo"]
-    }
+        keyboards = DEFAULT_KEYBOARDS
+    print(keyboards)
     return render_template("index.html", keyboards=keyboards)
 
 @app.route("/about_us")
@@ -77,6 +56,16 @@ def register():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
+        phrase_attrs = ("phrase1", "phrase2", "phrase3")
+        for icon, phrases in DEFAULT_KEYBOARDS.items():
+            db.session.add(
+                    Keyboard(icon=icon, **{attr:val for attr, val in zip(phrase_attrs, phrases)}))
+        db.session.commit()
+        first_keyboard_id = Keyboard.query.order_by(Keyboard.id).all()[-1].id - 2
+        keyboard_ids = (first_keyboard_id + i for i in range(3))
+        user_id = User.query.filter_by(username=form.username.data).first().id
+        for keyboard_id in keyboard_ids:
+            db.session.add(UserKeyboard(user_id=user_id, keyboard_id=keyboard_id))
         db.session.commit()
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)

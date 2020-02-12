@@ -24,14 +24,18 @@ def load_user(id):
 
 class Keyboard(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    icon = db.Column(db.String(10), nullable=False)
     phrase1 = db.Column(db.String(255), nullable=False)
     phrase2 = db.Column(db.String(255), nullable=False)
-    phrase2 = db.Column(db.String(255), nullable=False)
+    phrase3 = db.Column(db.String(255), nullable=False)
 
     def __repr__(self):
-        return "<Keyboard:\n{}\n{}\n{}\n>".format(phrase1, phrase2, phrase3)
+        return str({self.icon: [self.phrase1, self.phrase2, self.phrase3]})
 
 class UserKeyboard(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     keyboard_id = db.Column(db.Integer, db.ForeignKey("keyboard.id"), nullable=False)
+
+    def __repr__(self):
+        return "<Keyboard user_id={} keyboard_id={}>".format(self.user_id, self.keyboard_id)

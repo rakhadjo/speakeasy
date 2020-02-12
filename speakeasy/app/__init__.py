@@ -13,4 +13,10 @@ db = SQLAlchemy(app)
 login = LoginManager(app)
 login.login_view = "login"
 
+DEFAULT_KEYBOARDS = {
+        "U+0FCA": ("Hello world", "This is a test", "test test"),
+        "U+231A": ("blablabla", "hihihi", "huhuhuhuh"),
+        "U+2328": ("zaxzaz", "blop blop", "jujujuju")
+        }
+
 from app import routes, api_routes, models
