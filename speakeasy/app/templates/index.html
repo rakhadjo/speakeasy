@@ -16,11 +16,21 @@
         	</form>
 
 		<div class="keyboards">
-			<button>&#9824</button>
-			<button>&#9824</button>
-			<button>&#9824</button>
-			<button>&#9824</button>
-			<button>&#9824</button>
+			{% for keyboard in keyboards %}
+				<button>&#x{{ keyboard[2:] }}</button>
+			{% endfor %}
+		</div>
+
+		<div class="phrases">
+			{% set keyboardkeys = keyboards.keys()|list %}
+			<span class="bullet">&nbsp1&nbsp</span>
+			<span id="phrase1">{{ keyboards[keyboardkeys[0]][0] }}</span>
+			<hr>
+			<span class="bullet">&nbsp2&nbsp</span>
+			<span id="phrase1">{{ keyboards[keyboardkeys[0]][1] }}</span>
+			<hr>
+			<span class="bullet">&nbsp3&nbsp</span>
+			<span id="phrase1">{{ keyboards[keyboardkeys[0]][2] }}</span>
 		</div>
 
 
