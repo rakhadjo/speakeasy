@@ -2,10 +2,12 @@ body {
 	font-family: futura-pt, sans-serif;
 	font-style: normal;
 	font-weight: 300;
+	min-width: 1200px;
 }
 
 h1 {
 	color: #730000;
+	font-size: 40px;
 }
 
 /*nav bar (navigation bar)*/
@@ -24,7 +26,7 @@ h1 {
 .sidenav a {
 	padding: 20px 10px 20px 10px;
 	text-decoration: none;
-	font-size: 25px;
+	font-size: 30px;
 	color: #F6D6D6;
 	display: block;
 	text-align: center;
@@ -33,6 +35,11 @@ h1 {
 
 /*nav bar: pages, when cursor on them*/
 .sidenav a:hover {
+	color: #F6D6D6;
+	background-color: #D46A6A;
+}
+
+.sidenav a:active {
 	color: #F6D6D6;
 	background-color: #D46A6A;
 }
@@ -55,7 +62,7 @@ h1 {
 
 .main {
 	margin-left: 200px; /* Same as the width of the sidenav */
-	font-size: 20px; /* Increased text to enable scrolling */
+	font-size: 25px; /* Increased text to enable scrolling */
 	padding: 0px 30px;
 	color: black;
 }
@@ -66,3 +73,48 @@ h1 {
 	float: left;
 }
 
+.column70 {
+	width: 70%;
+	padding-right: 50px;
+	float: left;
+}
+
+.column30 {
+	width: 20%;
+	padding-right: 20px;
+	float: left;
+}
+
+textarea {
+	font-size: 18pt;
+	resize: none;
+	width: 100%;
+	height: 400px;
+}
+
+.keyboards {
+	padding: 30px 60px 30px 60px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.keyboards button {
+	border: 0;
+	background-color: #F6D6D6;
+	color: #D46A6A;
+	font-size: 50px;
+	padding: 0px 30px 0px 30px;
+}
+
+.keyboards button:active {
+	background-color: #D46A6A;
+	color: #730000;
+}
+
+
+
+.bullet {
+	background-color: #D46A6A;
+	height: 20px;
+	width: 20px;
+}

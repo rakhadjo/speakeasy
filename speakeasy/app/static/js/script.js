@@ -1,5 +1,5 @@
-let button = document.getElementById("speech_text_button");
-button.addEventListener("click", click_handler);
+//let button = document.getElementById("speech_text_button");
+//button.addEventListener("click", click_handler);
 window.addEventListener('keydown', windowKeydownHandler, true);
 let last_key_was_space = false;
 
