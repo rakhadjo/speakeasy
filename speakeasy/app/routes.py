@@ -21,11 +21,6 @@ def index():
 def about_us():
     return render_template("about_us.html")
 
-@app.route("/login_page")
-def login_page():
-    #This is to be removed
-    return render_template("login_page.html")
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
