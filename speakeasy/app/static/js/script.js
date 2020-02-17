@@ -6,7 +6,6 @@ let last_key_was_space = false;
 function windowKeydownHandler(e) {
     if (e.keyIdentifier == 'U+000A' || e.keyIdentifier == 'Enter' || e.keyCode == 13) {
         if (e.target.id == "speech_text_input") {
-            e.preventDefault();
             play_mp3(e.target.value);
         }
     } else if (e.keyCode == 32) {
