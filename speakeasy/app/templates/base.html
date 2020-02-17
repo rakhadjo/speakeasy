@@ -14,8 +14,9 @@
 	<a href="{{ url_for('index') }}">Speak</a>
 	<a href="{{ url_for('about_us') }}">About Us</a>
 	<a href="{{ url_for('profile') }}">Profile</a>
+
 	{% if current_user.is_anonymous %}
-	<a href="{{ url_for('login') }}" id="login_link">Login/Sign Up</a>
+	<a href="{{ url_for('login') }}" id="login_link">Login</a>
 	{% else %}
         <a href="{{ url_for('logout') }}" id="login_link">Logout</a>
         {% endif %}
