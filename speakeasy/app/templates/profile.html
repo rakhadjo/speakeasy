@@ -3,7 +3,69 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-	<h1>Profile</h1>
-	<p>This is the profile page</p>
+<script type="text/javascript" src="{{ url_for('static', filename='js/profile.js') }}"></script>
+<h1>Accent</h1>
+<form action="" method="post" novalidate>
+	{{ accent_form.hidden_tag() }}
+	<p>
+		{{ accent_form.accent_dropdown.label }}
+		{{ accent_form.accent_dropdown() }}
+		{% for error in accent_form.accent_dropdown.errors %}
+		<span class="error">[{{ error }}]</span>
+		{% endfor %}
+	</p>
+	<p>{{ accent_form.submit() }}</p>
+</form>
+<form action="" method="post" novalidate>
+	{{ gender_form.hidden_tag() }}
+	<p>
+		{{ gender_form.gender_dropdown.label }}
+		{{ gender_form.gender_dropdown() }}
+		{% for error in gender_form.gender_dropdown.errors %}
+		<span class="error">[{{ error }}]</span>
+		{% endfor %}
+	</p>
+	<p>{{ gender_form.submit() }}</p>
+</form>
+<form action="" method="post" novalidate>
+	{{ speed_form.hidden_tag() }}
+	<p>
+		{{ speed_form.speed.label }}
+		{{ speed_form.speed(min=0, max=100, oninput="outputUpdate(value)") }}
+		<output for="age" id="selected-age">{{ speed_form.speed.data }}</output>
+		{% for error in speed_form.speed.errors %}
+		<span class="error">[{{ error }}]</span>
+		{% endfor %}
+	</p>
+	<p>{{ speed_form.submit() }}</p>
+</form>
+<form action="" method="post" novalidate>
+	{{ password_form.hidden_tag() }}
+	<p>
+		{{ password_form.password.label }}
+		{{ password_form.password(size=32) }}
+		{% for error in password_form.password.errors %}
+		<span class="error">[{{ error }}]</span>
+		{% endfor %}
+	</p>
+	<p>
+		{{ password_form.password2.label }}
+		{{ password_form.password2(size=32) }}
+		{% for error in password_form.password2.errors %}
+		<span class="error">[{{ error }}]</span>
+		{% endfor %}
+	</p>
+	<p>{{ password_form.submit() }}</p>
+</form>
+<form action="" method="post" novalidate>
+	{{ email_form.hidden_tag() }}
+	<p>
+		{{ email_form.email.label }}
+		{{ email_form.email(size=32) }}
+		{% for error in email_form.email.errors %}
+		<span class="error">[{{ error }}]</span>
+		{% endfor %}
+	</p>
+	<p>{{ email_form.submit() }}</p>
+</form>
 {% endblock %}
-

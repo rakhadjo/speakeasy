@@ -1,7 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
+from wtforms.fields.html5 import DecimalRangeField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import User
+from app import speech_client
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -25,3 +27,33 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
+
+class AccentProfileForm(FlaskForm):
+    accents = (voice.name for voice in speech_client.list_voices().voices)
+    accents = (name for name in accents if name[:2] == "en")
+    accents = [(name, name) for name in accents]
+    accent_dropdown = SelectField('accent',
+            choices = accents,
+            validators = [DataRequired()])
+    submit = SubmitField("Save")
+
+class GenderProfileForm(FlaskForm):
+    genders = [(g,g) for g in ("MALE", "FEMALE", "NEUTRAL")]
+    gender_dropdown = SelectField("gender",
+            choices = genders,
+            validators = [DataRequired()])
+    submit = SubmitField("save")
+
+class SpeedProfileForm(FlaskForm):
+    speed = DecimalRangeField("speed", default = 50)
+    submit = SubmitField("save")
+
+class PasswordProfileForm(FlaskForm):
+    password = PasswordField("Password", validators=[DataRequired()])
+    password2 = PasswordField(
+            "Repeat password", validators=[DataRequired(), EqualTo("password")])
+    submit = SubmitField("Change password")
+
+class EmailProfileForm(FlaskForm):
+    email = StringField("Email", validators=[DataRequired(), Email()])
+    submit = SubmitField("Change email")

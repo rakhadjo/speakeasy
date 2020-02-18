@@ -1,9 +1,22 @@
 from flask import render_template, request, jsonify, url_for, redirect
 from app import app, db, DEFAULT_KEYBOARDS
-from flask_login import current_user, login_user, logout_user, login_required
+from flask_login import (
+        current_user,
+        login_user,
+        logout_user,
+        login_required,
+        )
 from werkzeug.urls import url_parse
 from app.models import User, UserKeyboard, Keyboard
-from app.forms import LoginForm, RegistrationForm
+from app.forms import (
+        LoginForm,
+        RegistrationForm,
+        AccentProfileForm,
+        GenderProfileForm,
+        SpeedProfileForm,
+        PasswordProfileForm,
+        EmailProfileForm,
+        )
 
 @app.route("/")
 def index():
@@ -14,7 +27,6 @@ def index():
         keyboards = {k.icon:[k.phrase1, k.phrase2, k.phrase3] for k in keyboard_list}
     else:
         keyboards = DEFAULT_KEYBOARDS
-    print(keyboards)
     return render_template("index.html", keyboards=keyboards)
 
 @app.route("/about_us")
@@ -65,7 +77,29 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-@app.route("/profile")
-@login_required
+@app.route("/profile", methods=["GET", "POST"])
+#@login_required
 def profile():
-    return render_template("profile.html")
+    accent_form = AccentProfileForm()
+    if accent_form.submit.data and accent_form.validate():
+        print(accent_form.accent_dropdown.data)
+    gender_form = GenderProfileForm()
+    if gender_form.submit.data and gender_form.validate():
+        print(gender_form.gender_dropdown.data)
+    speed_form = SpeedProfileForm()
+    if speed_form.submit.data and speed_form.validate():
+        print(speed_form.speed.data)
+    password_form = PasswordProfileForm()
+    if password_form.submit.data and password_form.validate():
+        print(password_form.password.data)
+        print(password_form.password.data)
+    email_form = EmailProfileForm()
+    if email_form.submit.data and email_form.validate():
+        print(email_form.email.data)
+    return render_template("profile.html",
+            accent_form=accent_form,
+            gender_form=gender_form,
+            password_form=password_form,
+            email_form=email_form,
+            speed_form=speed_form,
+            )
