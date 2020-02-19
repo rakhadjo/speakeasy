@@ -32,28 +32,28 @@ class AccentProfileForm(FlaskForm):
     accents = (voice.name for voice in speech_client.list_voices().voices)
     accents = (name for name in accents if name[:2] == "en")
     accents = [(name, name) for name in accents]
-    accent_dropdown = SelectField('accent',
+    accent_dropdown = SelectField('Speaking Accent',
             choices = accents,
             validators = [DataRequired()])
     submit = SubmitField("Save")
 
 class GenderProfileForm(FlaskForm):
     genders = [(g,g) for g in ("MALE", "FEMALE", "NEUTRAL")]
-    gender_dropdown = SelectField("gender",
+    gender_dropdown = SelectField("Voice Gender",
             choices = genders,
             validators = [DataRequired()])
-    submit = SubmitField("save")
+    submit = SubmitField("Save")
 
 class SpeedProfileForm(FlaskForm):
-    speed = DecimalRangeField("speed", default = 50)
-    submit = SubmitField("save")
+    speed = DecimalRangeField("Speaking Speed", default = 50)
+    submit = SubmitField("Save")
 
 class PasswordProfileForm(FlaskForm):
-    password = PasswordField("Password", validators=[DataRequired()])
+    password = PasswordField("Change Password", validators=[DataRequired()])
     password2 = PasswordField(
             "Repeat password", validators=[DataRequired(), EqualTo("password")])
-    submit = SubmitField("Change password")
+    submit = SubmitField("Change Password")
 
 class EmailProfileForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
-    submit = SubmitField("Change email")
+    submit = SubmitField("Change Email")
