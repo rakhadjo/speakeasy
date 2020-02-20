@@ -5,7 +5,7 @@
 {% block content %}
 <script type="text/javascript" src="{{ url_for('static', filename='js/profile.js') }}"></script>
 
-<div class="column50">
+<div class="column40">
 	<h1>Accent</h1>
 	<form action="" method="post" novalidate>
 		{{ accent_form.hidden_tag() }}
@@ -16,7 +16,9 @@
 			<span class="error">[{{ error }}]</span>
 			{% endfor %}
 		</p>
-		<p>{{ accent_form.submit() }}</p>
+		<p style="display: block;">
+			{{ accent_form.submit() }}
+		</p>
 	</form>
 	<form action="" method="post" novalidate>
 		{{ gender_form.hidden_tag() }}
@@ -27,7 +29,7 @@
 			<span class="error">[{{ error }}]</span>
 			{% endfor %}
 		</p>
-		<p>{{ gender_form.submit() }}</p>
+		<p style="display: block;">{{ gender_form.submit() }}</p>
 	</form>
 	<form action="" method="post" novalidate>
 		{{ speed_form.hidden_tag() }}
@@ -41,10 +43,13 @@
 		</p>
 		<p>{{ speed_form.submit() }}</p>
 	</form>
+
+	<h1>Your Details</h1>
 	<form action="" method="post" novalidate>
 		{{ password_form.hidden_tag() }}
 		<p>
 			{{ password_form.password.label }}
+			<br>
 			{{ password_form.password(size=32) }}
 			{% for error in password_form.password.errors %}
 			<span class="error">[{{ error }}]</span>
@@ -52,6 +57,7 @@
 		</p>
 		<p>
 			{{ password_form.password2.label }}
+			<br>
 			{{ password_form.password2(size=32) }}
 			{% for error in password_form.password2.errors %}
 			<span class="error">[{{ error }}]</span>
@@ -63,6 +69,7 @@
 		{{ email_form.hidden_tag() }}
 		<p>
 			{{ email_form.email.label }}
+			<br>
 			{{ email_form.email(size=32) }}
 			{% for error in email_form.email.errors %}
 			<span class="error">[{{ error }}]</span>

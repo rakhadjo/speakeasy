@@ -11,13 +11,21 @@
 	function switchKeyboard(keyboardnum) {
 		for (let i = 0; i < {{ keyboardkeys|length }}; i++) {
 			let keyboard = document.getElementById("keyboard" + String(i));
+			let keyboardbutton = document.getElementById("keyboardbutton" + String(i));
 			if (keyboardnum == i) {
 				keyboard.style.display = "block";
+				if (!(keyboardbutton.classList.contains("active"))) {
+				    keyboardbutton.classList.add("active");
+				}
 			} else {
 				keyboard.style.display = "none";
+				if (keyboardbutton.classList.contains("active")) {
+				    keyboardbutton.classList.remove("active");
+				}
 			}
 		}
-	}
+	} 
+
 </script>
 
 	<h1>Type and Be Heard</h1>
@@ -30,7 +38,7 @@
 
 		<div class="keyboards">
 			{% for i in range(keyboardkeys|length) %}
-				<button onClick="switchKeyboard({{ i }})">&#x{{ keyboardkeys[i][2:] }}</button>
+				<button id="keyboardbutton{{ i }}" onClick="switchKeyboard({{ i }})">&#x{{ keyboardkeys[i][2:] }}</button>
 			{% endfor %}
 		</div>
 
