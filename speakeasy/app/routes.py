@@ -11,11 +11,7 @@ from app.models import User, UserKeyboard, Keyboard
 from app.forms import (
         LoginForm,
         RegistrationForm,
-        AccentProfileForm,
-        GenderProfileForm,
-        SpeedProfileForm,
-        PasswordProfileForm,
-        EmailProfileForm,
+        ProfileForm,
         )
 
 @app.route("/")
@@ -80,27 +76,16 @@ def register():
 @app.route("/profile", methods=["GET", "POST"])
 #@login_required
 def profile():
-    accent_form = AccentProfileForm()
-    if accent_form.submit.data and accent_form.validate():
-        print(accent_form.accent_dropdown.data)
-    gender_form = GenderProfileForm()
-    if gender_form.submit.data and gender_form.validate():
-        print(gender_form.gender_dropdown.data)
-    speed_form = SpeedProfileForm()
-    if speed_form.submit.data and speed_form.validate():
-        print(speed_form.speed.data)
-    password_form = PasswordProfileForm()
-    if password_form.submit.data and password_form.validate():
-        print(password_form.password.data)
-        print(password_form.password.data)
-    email_form = EmailProfileForm()
-    if email_form.submit.data and email_form.validate():
-        print(email_form.email.data)
+    form = ProfileForm()
+    if form.accent_submit.data:
+        print("accent")
+        if form.accent_form.validate(form):
+            print(form.accent_form.accent_dropdown.data)
+    if form.password_submit.data:
+        if form.password_form.validate(form):
+            print("password validated")
+    if form.email_submit.data:
+        if form.email_form.validate(form):
+            print("email validated")
     keyboards = DEFAULT_KEYBOARDS
-    return render_template("profile.html",
-            accent_form=accent_form,
-            gender_form=gender_form,
-            password_form=password_form,
-            email_form=email_form,
-            speed_form=speed_form,
-            keyboards=keyboards)
+    return render_template("profile.html", form=form, keyboards=keyboards)
