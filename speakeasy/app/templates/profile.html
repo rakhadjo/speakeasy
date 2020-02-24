@@ -8,74 +8,67 @@
 <div class="column40">
 	<h1>Accent</h1>
 	<form action="" method="post" novalidate>
-		{{ accent_form.hidden_tag() }}
+		{{ form.hidden_tag() }}
+		{{ form.accent_form.hidden_tag() }}
+		{{ form.password_form.hidden_tag() }}
+		{{ form.email_form.hidden_tag() }}
 		<p>
-			{{ accent_form.accent_dropdown.label }}
-			{{ accent_form.accent_dropdown() }}
-			{% for error in accent_form.accent_dropdown.errors %}
+			{{ form.accent_form.accent_dropdown.label }}
+			{{ form.accent_form.accent_dropdown() }}
+			{% for error in form.accent_form.accent_dropdown.errors %}
 			<span class="error">[{{ error }}]</span>
 			{% endfor %}
 		</p>
-		<p style="display: block;">
-			{{ accent_form.submit() }}
-		</p>
-	</form>
-	<form action="" method="post" novalidate>
-		{{ gender_form.hidden_tag() }}
 		<p>
-			{{ gender_form.gender_dropdown.label }}
-			{{ gender_form.gender_dropdown() }}
-			{% for error in gender_form.gender_dropdown.errors %}
+			{{ form.accent_form.gender_dropdown.label }}
+			{{ form.accent_form.gender_dropdown() }}
+			{% for error in form.accent_form.gender_dropdown.errors %}
 			<span class="error">[{{ error }}]</span>
 			{% endfor %}
 		</p>
-		<p style="display: block;">{{ gender_form.submit() }}</p>
-	</form>
-	<form action="" method="post" novalidate>
-		{{ speed_form.hidden_tag() }}
 		<p>
-			{{ speed_form.speed.label }}
-			{{ speed_form.speed(min=0, max=100, oninput="outputUpdate(value)") }}
-			<output for="age" id="selected-age">{{ speed_form.speed.data }}</output>
-			{% for error in speed_form.speed.errors %}
+			{{ form.accent_form.speed.label }}
+			{{ form.accent_form.speed(min=0, max=100, oninput="outputUpdate(value)") }}
+			<output for="age" id="selected-age">{{ form.accent_form.speed.data }}</output>
+			{% for error in form.accent_form.speed.errors %}
 			<span class="error">[{{ error }}]</span>
 			{% endfor %}
 		</p>
-		<p>{{ speed_form.submit() }}</p>
-	</form>
-
+		<p>{{ form.accent_submit() }}</p>
 	<h1>Your Details</h1>
-	<form action="" method="post" novalidate>
-		{{ password_form.hidden_tag() }}
 		<p>
-			{{ password_form.password.label }}
+			{{ form.password_form.password.label }}
 			<br>
-			{{ password_form.password(size=32) }}
-			{% for error in password_form.password.errors %}
+			{{ form.password_form.password(size=32) }}
+			{% for error in form.password_form.password.errors %}
+			<span class="error">[{{ error }}]</span>
+			{% endfor %}
+		<p>
+			{{ form.password_form.new_password.label }}
+			<br>
+			{{ form.password_form.new_password(size=32) }}
+			{% for error in form.password_form.new_password.errors %}
 			<span class="error">[{{ error }}]</span>
 			{% endfor %}
 		</p>
 		<p>
-			{{ password_form.password2.label }}
+			{{ form.password_form.new_password2.label }}
 			<br>
-			{{ password_form.password2(size=32) }}
-			{% for error in password_form.password2.errors %}
+			{{ form.password_form.new_password2(size=32) }}
+			{% for error in form.password_form.new_password2.errors %}
 			<span class="error">[{{ error }}]</span>
 			{% endfor %}
 		</p>
-		<p>{{ password_form.submit() }}</p>
-	</form>
-	<form action="" method="post" novalidate>
-		{{ email_form.hidden_tag() }}
+		<p>{{ form.password_submit() }}</p>
 		<p>
-			{{ email_form.email.label }}
+			{{ form.email_form.email.label }}
 			<br>
-			{{ email_form.email(size=32) }}
-			{% for error in email_form.email.errors %}
+			{{ form.email_form.email(size=32) }}
+			{% for error in form.email_form.email.errors %}
 			<span class="error">[{{ error }}]</span>
 			{% endfor %}
 		</p>
-		<p>{{ email_form.submit() }}</p>
+		<p>{{ form.email_submit() }}</p>
 	</form>
 </div>
 {% endblock %}

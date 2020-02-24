@@ -1,5 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
+from wtforms import (
+        StringField,
+        PasswordField,
+        BooleanField,
+        SubmitField,
+        SelectField,
+        FormField,
+        )
 from wtforms.fields.html5 import DecimalRangeField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import User
@@ -35,25 +42,25 @@ class AccentProfileForm(FlaskForm):
     accent_dropdown = SelectField('Speaking Accent',
             choices = accents,
             validators = [DataRequired()])
-    submit = SubmitField("Save")
-
-class GenderProfileForm(FlaskForm):
     genders = [(g,g) for g in ("MALE", "FEMALE", "NEUTRAL")]
     gender_dropdown = SelectField("Voice Gender",
             choices = genders,
             validators = [DataRequired()])
-    submit = SubmitField("Save")
-
-class SpeedProfileForm(FlaskForm):
     speed = DecimalRangeField("Speaking Speed", default = 50)
-    submit = SubmitField("Save")
 
 class PasswordProfileForm(FlaskForm):
-    password = PasswordField("Change Password", validators=[DataRequired()])
-    password2 = PasswordField(
+    password = PasswordField("Current Password", validators=[DataRequired()])
+    new_password = PasswordField("Change Password", validators=[DataRequired()])
+    new_password2 = PasswordField(
             "Repeat password", validators=[DataRequired(), EqualTo("password")])
-    submit = SubmitField("Change Password")
 
 class EmailProfileForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
-    submit = SubmitField("Change Email")
+
+class ProfileForm(FlaskForm):
+    accent_form = FormField(AccentProfileForm)
+    password_form = FormField(PasswordProfileForm)
+    email_form = FormField(EmailProfileForm)
+    accent_submit = SubmitField("Save")
+    password_submit = SubmitField("Change Password")
+    email_submit = SubmitField("Change Email")
