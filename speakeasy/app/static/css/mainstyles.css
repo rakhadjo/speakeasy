@@ -69,28 +69,18 @@ h1 {
 
 .column50 {
 	width: 40%;
-	padding-left: 20px;
-	padding-right: 20px;
+	padding-right: 50px;
 	float: left;
 }
 
 .column70 {
 	width: 70%;
-	padding-left: 20px;
-	padding-right: 20px;
+	padding-right: 50px;
 	float: left;
 }
 
 .column30 {
 	width: 20%;
-	padding-left: 20px;
-	padding-right: 20px;
-	float: left;
-}
-
-.column40 {
-	width: 30%;
-	padding-left: 20px;
 	padding-right: 20px;
 	float: left;
 }
@@ -109,7 +99,6 @@ textarea {
 }
 
 .keyboards button {
-	cursor: pointer;
 	border: 0;
 	background-color: #F6D6D6;
 	color: #D46A6A;
@@ -117,7 +106,7 @@ textarea {
 	padding: 0px 30px 0px 30px;
 }
 
-.keyboards button:active, button.active {
+.keyboards button:active {
 	background-color: #D46A6A;
 	color: #730000;
 }
@@ -130,23 +119,22 @@ textarea {
 	width: 20px;
 }
 
-select {
-	float: right;
-}
-
 input[type=submit] {
 	background-color: #A30000;
 	font-size: 0.85em;
-	border: none;
-	color: #F6D6D6;
-	padding: 8px 24px;
-	text-decoration: none;
-	margin: 0px 0px;
-	cursor: pointer;
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
-input[type=submit]:active {
-	background-color: #730000;
-	color: #F6D6D6;
-
+.error {
+	color: #A30000;
+	font-family: futura-pt, sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 20px;
+	text-shadow: 1px 1px rgba(250, 250, 250, .3);
 }
