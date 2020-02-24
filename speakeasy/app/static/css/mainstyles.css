@@ -111,6 +111,22 @@ textarea {
 	color: #730000;
 }
 
+.iconbutton {
+	border: 0;
+	background-color: #F6D6D6;
+	color: #D46A6A;
+	font-size: 50px;
+	width: 120px;
+	height: 120px;
+	float: left;
+}
+
+.phrasesetting {
+	height: 40px;
+	width: 400px;
+	padding: 0px;
+}
+
 
 
 .bullet {

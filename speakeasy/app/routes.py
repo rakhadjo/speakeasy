@@ -96,10 +96,11 @@ def profile():
     email_form = EmailProfileForm()
     if email_form.submit.data and email_form.validate():
         print(email_form.email.data)
+    keyboards = DEFAULT_KEYBOARDS
     return render_template("profile.html",
             accent_form=accent_form,
             gender_form=gender_form,
             password_form=password_form,
             email_form=email_form,
             speed_form=speed_form,
-            )
+            keyboards=keyboards)
