@@ -8,6 +8,11 @@ body {
 h1 {
 	color: #730000;
 	font-size: 40px;
+	width: 100%;
+}
+
+p {
+	overflow: hidden;
 }
 
 /*nav bar (navigation bar)*/
@@ -73,6 +78,12 @@ h1 {
 	float: left;
 }
 
+.column40 {
+	width: 30%;
+	padding-right: 50px;
+	float: left;
+}
+
 .column70 {
 	width: 70%;
 	padding-right: 50px;
@@ -111,6 +122,21 @@ textarea {
 	color: #730000;
 }
 
+select {
+	float: right;
+}
+
+input#accent_form-speed {
+	float: right;
+	margin-top: 5px;
+}
+
+#selected-age {
+	float: right;
+	width: 50px;
+	text-align: right;
+}
+
 .iconbutton {
 	border: 0;
 	background-color: #F6D6D6;
@@ -127,8 +153,6 @@ textarea {
 	padding: 0px;
 }
 
-
-
 .bullet {
 	background-color: #D46A6A;
 	height: 20px;
@@ -138,12 +162,21 @@ textarea {
 input[type=submit] {
 	background-color: #A30000;
 	font-size: 0.85em;
-  border: none;
-  color: white;
-  padding: 10px 32px;
-  text-decoration: none;
-  margin: 4px 2px;
-  cursor: pointer;
+	border: none;
+	color: #F6D6D6;
+	padding: 10px 32px;
+	text-decoration: none;
+	margin: 4px 2px;
+	cursor: pointer;
+	float: right;
+}
+
+#password_form-password, #password_form-new_password, #password_form-new_password2, #email_form-email {
+	width: 96%;
+}
+
+#password, #username, #email, #password2 {
+	width: 94%;
 }
 
 .error {

@@ -7,7 +7,7 @@ from wtforms import (
         SelectField,
         FormField,
         )
-from wtforms.fields.html5 import DecimalRangeField
+from wtforms.fields.html5 import IntegerRangeField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import User
 from app import speech_client
@@ -46,7 +46,7 @@ class AccentProfileForm(FlaskForm):
     gender_dropdown = SelectField("Voice Gender",
             choices = genders,
             validators = [DataRequired()])
-    speed = DecimalRangeField("Speaking Speed", default = 50)
+    speed = IntegerRangeField("Speaking Speed", default = 50)
 
 class PasswordProfileForm(FlaskForm):
     password = PasswordField("Current Password", validators=[DataRequired()])

@@ -7,7 +7,7 @@
 
 {% set keyboardkeys = keyboards.keys()|list %}
 
-<div class="column50">
+<div class="column40">
 	<h1>Accent Preferences</h1>
 	<form action="" method="post" novalidate>
 		{{ form.hidden_tag() }}
@@ -30,8 +30,9 @@
 		</p>
 		<p>
 			{{ form.accent_form.speed.label }}
-			{{ form.accent_form.speed(min=0, max=100, oninput="outputUpdate(value)") }}
 			<output for="age" id="selected-age">{{ form.accent_form.speed.data }}</output>
+			{{ form.accent_form.speed(min=0, max=100, oninput="outputUpdate(value)") }}
+			
 			{% for error in form.accent_form.speed.errors %}
 			<span class="error">[{{ error }}]</span>
 			{% endfor %}
