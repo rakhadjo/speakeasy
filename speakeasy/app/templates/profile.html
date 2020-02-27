@@ -4,8 +4,40 @@
 
 {% block content %}
 <script type="text/javascript" src="{{ url_for('static', filename='js/profile.js') }}"></script>
-
 {% set keyboardkeys = keyboards.keys()|list %}
+<script>
+	function showIconDropdown(keyboardnum) {
+		for (let i = 0; i < {{ keyboardkeys|length }}; i++) {
+			let keyboard = document.getElementById("iconselect" + String(i));
+			let keyboardbutton = document.getElementById("keyboardicon" + String(i));
+			if (keyboardnum == i) {
+				if (!(keyboard.classList.contains("show"))) {
+				    keyboard.classList.add("show");
+				}
+				else {
+				    keyboard.classList.remove("show");
+				}
+
+				if (!(keyboardbutton.classList.contains("active"))) {
+				    keyboardbutton.classList.add("active");
+				}
+				else {
+				    keyboardbutton.classList.remove("active");
+				}
+			} else {
+				if (keyboard.classList.contains("show")) {
+				    keyboard.classList.remove("show");
+				}
+				if (keyboardbutton.classList.contains("active")) {
+				    keyboardbutton.classList.remove("active");
+				}
+			}
+		}
+	} 
+
+</script>
+
+
 
 <div class="column40">
 	<h1>Accent Preferences</h1>
@@ -80,18 +112,28 @@
 <div class="column50">
 	<h1>Custom Phrases</h1>
 
-	{% for i in range(keyboardkeys|length) %}
+	<div id="keyboardsettings">
+		{% for i in range(keyboardkeys|length) %}
 
 			<div id="keyboardsetting{{ i }}">
-				<button id="keyboardicon{{ i }}" class="iconbutton">&#x{{ keyboardkeys[i][2:] }}</button>
+
+				 <div class="icondropdown">
+					<button id="keyboardicon{{ i }}" class="iconbutton" onClick="showIconDropdown({{ i }})">&#x{{ keyboardkeys[i][2:] }}</button>
+					<div id="iconselect{{ i }}" class="iconoptions">
+						<a href="#">Link 1</a>
+						<a href="#">Link 2</a>
+						<a href="#">Link 3</a>
+					</div>
+				</div> 
+
 				<input type="text" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][0] }}"><br>
 				<input type="text" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][1] }}"><br>
 				<input type="text" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][2] }}"><br>
 				<br><br>
 			</div>
 
-			{% endfor %}
-
+		{% endfor %}
+	</div>
 
 
 </div>

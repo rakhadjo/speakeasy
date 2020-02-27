@@ -2,7 +2,7 @@ body {
 	font-family: futura-pt, sans-serif;
 	font-style: normal;
 	font-weight: 300;
-	min-width: 1200px;
+	min-width: 1800px;
 }
 
 h1 {
@@ -109,7 +109,7 @@ textarea {
 	justify-content: space-between;
 }
 
-.keyboards button {
+button {
 	border: 0;
 	background-color: #F6D6D6;
 	color: #D46A6A;
@@ -117,7 +117,7 @@ textarea {
 	padding: 0px 30px 0px 30px;
 }
 
-.keyboards button:active {
+button:active, button.active {
 	background-color: #D46A6A;
 	color: #730000;
 }
@@ -141,10 +141,40 @@ input#accent_form-speed {
 	border: 0;
 	background-color: #F6D6D6;
 	color: #D46A6A;
-	font-size: 50px;
+	font-size: 64px;
 	width: 120px;
 	height: 120px;
 	float: left;
+}
+
+.keyboardsettings {
+	position: static;
+}
+
+.iconoptions {
+	visibility: hidden;
+	position: absolute;
+	left: 40%;
+	background-color: #f1f1f1;
+	min-width: 160px;
+	z-index: 1;
+}
+
+/* Links inside the dropdown */
+.iconoptions a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+/* Change color of dropdown links on hover */
+.iconoptions a:hover {
+	background-color: #ddd
+}
+
+.show {
+	visibility: visible;
 }
 
 .phrasesetting {
