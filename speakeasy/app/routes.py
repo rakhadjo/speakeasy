@@ -20,6 +20,7 @@ def index():
         user_keyboards = UserKeyboard.query.filter_by(user_id=current_user.id)
         keyboard_ids = (uk.keyboard_id for uk in user_keyboards)
         keyboard_list = (Keyboard.query.filter_by(id=id).first() for id in keyboard_ids)
+        keyboard_list = sorted(keyboard_list, key = lambda k: k.position)
         keyboards = {k.icon:[k.phrase1, k.phrase2, k.phrase3] for k in keyboard_list}
     else:
         keyboards = DEFAULT_KEYBOARDS
@@ -60,9 +61,12 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         phrase_attrs = ("phrase1", "phrase2", "phrase3")
-        for icon, phrases in DEFAULT_KEYBOARDS.items():
-            db.session.add(
-                    Keyboard(icon=icon, **{attr:val for attr, val in zip(phrase_attrs, phrases)}))
+        for i, (icon, phrases) in enumerate(DEFAULT_KEYBOARDS.items()):
+            db.session.add(Keyboard(
+                icon=icon,
+                position=i,
+                **{attr:val for attr, val in zip(phrase_attrs, phrases)}
+                ))
         db.session.commit()
         first_keyboard_id = Keyboard.query.order_by(Keyboard.id).all()[-1].id - 2
         keyboard_ids = (first_keyboard_id + i for i in range(3))

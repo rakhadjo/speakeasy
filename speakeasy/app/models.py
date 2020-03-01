@@ -28,6 +28,7 @@ class Keyboard(db.Model):
     phrase1 = db.Column(db.String(255), nullable=False)
     phrase2 = db.Column(db.String(255), nullable=False)
     phrase3 = db.Column(db.String(255), nullable=False)
+    position = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
         return str({self.icon: [self.phrase1, self.phrase2, self.phrase3]})
