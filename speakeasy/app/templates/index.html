@@ -32,9 +32,8 @@
 
 	<div class="column70">
 		<form>
-      <!--<input type="text" name="speech_text" id="speech_text_input">-->
-      <textarea name="speech_text" id="speech_text_input" autofocus></textarea>
-    </form>
+    		<textarea name="speech_text" id="speech_text_input" autofocus></textarea>
+    	</form>
 
 		<div class="keyboards">
 			{% for i in range(keyboardkeys|length) %}
@@ -48,13 +47,13 @@
 
 			<div id="keyboard{{ i }}">
 				<span class="bullet">&nbsp1&nbsp</span>
-				<span>{{ keyboards[keyboardkeys[i]][0] }}</span>
+				<span class="phrase">{{ keyboards[keyboardkeys[i]][0] }}</span>
 				<hr>
 				<span class="bullet">&nbsp2&nbsp</span>
-				<span>{{ keyboards[keyboardkeys[i]][1] }}</span>
+				<span class="phrase">{{ keyboards[keyboardkeys[i]][1] }}</span>
 				<hr>
 				<span class="bullet">&nbsp3&nbsp</span>
-				<span>{{ keyboards[keyboardkeys[i]][2] }}</span>
+				<span class="phrase">{{ keyboards[keyboardkeys[i]][2] }}</span>
 			</div>
 
 			{% endfor %}
