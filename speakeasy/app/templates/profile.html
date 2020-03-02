@@ -126,9 +126,9 @@
 					</div>
 				</div> 
 
-				<input type="text" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][0] }}"><br>
-				<input type="text" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][1] }}"><br>
-				<input type="text" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][2] }}"><br>
+				{% for j in range(3) %}
+					<input type="text" id="phrasesetting{{ i }}{{ j }}" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][j] }}"><br>
+				{% endfor %}
 				<br><br>
 			</div>
 
