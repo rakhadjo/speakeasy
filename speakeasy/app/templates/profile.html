@@ -35,6 +35,30 @@
 		}
 	} 
 
+function swapkeyboards(id1, id2) {
+
+	// temp = id1
+	var icon = document.getElementById("keyboardicon" + String(id1)).innerHTML;
+	var p1 = document.getElementById("phrasesetting" + String(id1)+"0").value;
+	var p2 = document.getElementById("phrasesetting" + String(id1)+"1").value;
+	var p3 = document.getElementById("phrasesetting" + String(id1)+"2").value;
+
+	alert(icon+p1+p2+p3);
+
+	// id1 = id2
+	document.getElementById("keyboardicon" + String(id1)).innerHTML = document.getElementById("keyboardicon" + String(id2)).innerHTML;
+	document.getElementById("phrasesetting" + String(id1)+String(0)).value = document.getElementById("phrasesetting" + String(id2)+String(0)).value;
+	document.getElementById("phrasesetting" + String(id1)+String(1)).value = document.getElementById("phrasesetting" + String(id2)+String(1)).value;
+	document.getElementById("phrasesetting" + String(id1)+String(2)).value = document.getElementById("phrasesetting" + String(id2)+String(2)).value;
+
+	// id2 = temp
+	document.getElementById("keyboardicon" + String(id2)).innerHTML = icon;
+	document.getElementById("phrasesetting" + String(id2)+String(0)).value = p1;
+	document.getElementById("phrasesetting" + String(id2)+String(1)).value = p2;
+	document.getElementById("phrasesetting" + String(id2)+String(2)).value = p3;
+	
+}
+
 </script>
 
 
@@ -126,9 +150,15 @@
 					</div>
 				</div> 
 
-				{% for j in range(3) %}
-					<input type="text" id="phrasesetting{{ i }}{{ j }}" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][j] }}"><br>
-				{% endfor %}
+					<input type="text" id="phrasesetting{{ i }}0" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][0] }}">
+					{% if i != 0 %}
+					<button class="arrow" onClick="swapkeyboards({{ i }}, {{ i-1 }})">^</button>
+					{% endif %}
+					<br><input type="text" id="phrasesetting{{ i }}1" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][1] }}">
+					<br><input type="text" id="phrasesetting{{ i }}2" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][2] }}">
+					{% if i != keyboardkeys|length - 1 %}
+					<button class="arrow" onClick="swapkeyboards({{ i }}, {{ i+1 }})">v</button>
+					{% endif %}
 				<br><br>
 			</div>
 

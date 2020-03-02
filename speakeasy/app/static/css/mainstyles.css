@@ -109,7 +109,7 @@ textarea {
 	justify-content: space-between;
 }
 
-button {
+.keyboards button {
 	border: 0;
 	background-color: #F6D6D6;
 	color: #D46A6A;
@@ -117,7 +117,7 @@ button {
 	padding: 0px 30px 0px 30px;
 }
 
-button:active, button.active {
+.keyboards button:active, .keyboards button.active {
 	background-color: #D46A6A;
 	color: #730000;
 }
@@ -181,6 +181,10 @@ input#accent_form-speed {
 	height: 40px;
 	width: 400px;
 	padding: 0px;
+}
+
+.arrowup {
+
 }
 
 .bullet {
