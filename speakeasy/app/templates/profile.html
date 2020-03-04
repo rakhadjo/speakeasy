@@ -43,8 +43,6 @@ function swapkeyboards(id1, id2) {
 	var p2 = document.getElementById("phrasesetting" + String(id1)+"1").value;
 	var p3 = document.getElementById("phrasesetting" + String(id1)+"2").value;
 
-	alert(icon+p1+p2+p3);
-
 	// id1 = id2
 	document.getElementById("keyboardicon" + String(id1)).innerHTML = document.getElementById("keyboardicon" + String(id2)).innerHTML;
 	document.getElementById("phrasesetting" + String(id1)+String(0)).value = document.getElementById("phrasesetting" + String(id2)+String(0)).value;
@@ -137,32 +135,69 @@ function swapkeyboards(id1, id2) {
 	<h1>Custom Phrases</h1>
 
 	<div id="keyboardsettings">
-		{% for i in range(keyboardkeys|length) %}
+		{% for i in range(5) %}
+			
+			{% if i < keyboardkeys|length %}
 
-			<div id="keyboardsetting{{ i }}">
+				<div id="keyboardsetting{{ i }}" class="keyboardsetting show">
 
-				 <div class="icondropdown">
-					<button id="keyboardicon{{ i }}" class="iconbutton" onClick="showIconDropdown({{ i }})">&#x{{ keyboardkeys[i][2:] }}</button>
-					<div id="iconselect{{ i }}" class="iconoptions">
-						<a href="#">Link 1</a>
-						<a href="#">Link 2</a>
-						<a href="#">Link 3</a>
-					</div>
-				</div> 
+					 <div class="icondropdown">
+						<button id="keyboardicon{{ i }}" class="iconbutton" onClick="showIconDropdown({{ i }})">&#x{{ keyboardkeys[i][2:] }}</button>
+						<div id="iconselect{{ i }}" class="iconoptions">
+							<a href="#">Link 1</a>
+							<a href="#">Link 2</a>
+							<a href="#">Link 3</a>
+						</div>
+					</div> 
 
-					<input type="text" id="phrasesetting{{ i }}0" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][0] }}">
-					{% if i != 0 %}
-					<button class="arrow" onClick="swapkeyboards({{ i }}, {{ i-1 }})">^</button>
-					{% endif %}
-					<br><input type="text" id="phrasesetting{{ i }}1" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][1] }}">
-					<br><input type="text" id="phrasesetting{{ i }}2" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][2] }}">
-					{% if i != keyboardkeys|length - 1 %}
-					<button class="arrow" onClick="swapkeyboards({{ i }}, {{ i+1 }})">v</button>
-					{% endif %}
-				<br><br>
-			</div>
+						<input type="text" id="phrasesetting{{ i }}0" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][0] }}">
+						{% if i != 0 %}
+						<button class="arrow show" onClick="swapkeyboards({{ i }}, {{ i-1 }})">▲</button>
+						{% endif %}
+						<br><input type="text" id="phrasesetting{{ i }}1" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][1] }}">
+						<button class="add show">-</button>
+						<br><input type="text" id="phrasesetting{{ i }}2" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][2] }}">
+						{% if i != keyboardkeys|length - 1 %}
+						<button class="arrow show" onClick="swapkeyboards({{ i }}, {{ i+1 }})">▼</button>
+						{% else %}
+						<button class="arrow" onClick="swapkeyboards({{ i }}, {{ i+1 }})">▼</button>
+						{% endif %}
+					<br><br>
+				</div>
+
+			{% else %}
+
+				<div id="keyboardsetting{{ i }}" class="keyboardsetting">
+
+					 <div class="icondropdown">
+						<button id="keyboardicon{{ i }}" class="iconbutton" onClick="showIconDropdown({{ i }})">&#x003F</button>
+						<div id="iconselect{{ i }}" class="iconoptions">
+							<a href="#">Link 1</a>
+							<a href="#">Link 2</a>
+							<a href="#">Link 3</a>
+						</div>
+					</div> 
+
+						<input type="text" id="phrasesetting{{ i }}0" class="phrasesetting" value="Insert new">
+						{% if i != 0 %}
+						<button class="arrow show" onClick="swapkeyboards({{ i }}, {{ i-1 }})">▲</button>
+						{% endif %}
+						<br><input type="text" id="phrasesetting{{ i }}1" class="phrasesetting" value="Phrases for">
+						<button class="add show">-</button>
+						<br><input type="text" id="phrasesetting{{ i }}2" class="phrasesetting" value="This keyboard">
+						{% if i != keyboardkeys|length - 1 %}
+						<button class="arrow show" onClick="swapkeyboards({{ i }}, {{ i+1 }})">▼</button>
+						{% else %}
+						<button class="arrow" onClick="swapkeyboards({{ i }}, {{ i+1 }})">▼</button>
+						{% endif %}
+					<br><br>
+				</div>
+
+			{% endif %}
 
 		{% endfor %}
+
+		<button class="add show" style="margin-left: 260px;">+</button>
 	</div>
 
 	<form action="/keyboards" method="post">

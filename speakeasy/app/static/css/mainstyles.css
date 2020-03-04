@@ -173,18 +173,45 @@ input#accent_form-speed {
 	background-color: #ddd
 }
 
-.show {
-	visibility: visible;
-}
-
 .phrasesetting {
 	height: 40px;
 	width: 400px;
 	padding: 0px;
 }
 
-.arrowup {
+.arrow {
+	visibility: hidden;
+	font-size: 28px;
+	padding: 0px 8px;
+	border: 0px;
+	color: #808080;
+	background-color: white;
+	vertical-align: middle;
+}
 
+.add {
+	visibility: hidden;
+	font-size: 20px;
+	padding: 0px 8px;
+	border: 0px;
+	color: #F6D6D6;
+	background-color: #A30000;
+	vertical-align: middle;
+	margin-left: 7px;
+}
+
+button.arrow:active, button.arrow:hover {
+	color: #606060;
+	background-color: #E3E3E3;
+}
+
+.keyboardsetting {
+	display: none;
+}
+
+.show {
+	visibility: inherit;
+	display: inline;
 }
 
 .bullet {
