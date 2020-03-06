@@ -18,9 +18,54 @@ function windowKeydownHandler(e) {
 				last_key_was_space = true;
 			}
 		}
-    } else {
+	} else {
 		last_key_was_space = false;
+		if (e.altKey && e.code == "KeyY") {
+			if (!e.shiftKey) {
+				switchKeyboardNull(0);
+			} else {
+				insert(0);
+			}
+		} else if (e.altKey && e.code == "KeyU") {
+			if (!e.shiftKey) {
+				switchKeyboardNull(1);
+			} else {
+				insert(1);
+			}
+		} else if (e.altKey && e.code == "KeyI") {
+			if (!e.shiftKey) {
+				switchKeyboardNull(2);
+			} else {
+				insert(2);
+			}
+		} else if (e.altKey && e.code == "KeyO") {
+			switchKeyboardNull(3);
+		} else if (e.altKey && e.code == "KeyP") {
+			//This does not work as of now
+			switchKeyboardNull(4);
+		}
 	}
+}
+
+function switchKeyboardNull(i) {
+	if (document.getElementById("keyboard" + i))
+		switchKeyboard(i);
+}
+
+function insert(i) {
+	let keyboard_id = document.getElementsByClassName("active")[0].id; //Assuming no more actives
+	let keyboard_i = Number(keyboard_id[keyboard_id.length - 1]); //keyboards.length <= 5
+	let keyboard = document.getElementById("keyboard" + keyboard_i);
+	let phrase_elements = keyboard.getElementsByClassName("phrase");
+	let phrase = phrase_elements[i].innerHTML;
+	let old_text = document.getElementById("speech_text_input").value;
+	let new_text;
+	if (old_text.length > 0) {
+		new_text = old_text.trim() + " " + phrase + " ";
+	} else {
+		new_text = phrase + " ";
+	}
+	document.getElementById("speech_text_input").value = new_text;
 }
 
 function click_handler(e) {
