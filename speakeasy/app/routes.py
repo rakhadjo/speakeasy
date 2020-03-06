@@ -13,18 +13,24 @@ from app.forms import (
         RegistrationForm,
         ProfileForm,
         )
+from app.db_functions import (
+        get_user_keyboards,
+        update_keyboards_db,
+        update_accent_db,
+        update_password_db,
+        update_email_db,
+        add_user,
+        )
 
 @app.route("/")
 def index():
     if current_user.is_authenticated:
-        user_keyboards = UserKeyboard.query.filter_by(user_id=current_user.id)
-        keyboard_ids = (uk.keyboard_id for uk in user_keyboards)
-        keyboard_list = (Keyboard.query.filter_by(id=id).first() for id in keyboard_ids)
-        keyboard_list = sorted(keyboard_list, key = lambda k: k.position)
-        keyboards = {k.icon:[k.phrase1, k.phrase2, k.phrase3] for k in keyboard_list}
+        keyboards = get_user_keyboards()
+        audio_speed = User.query.filter_by(id=current_user.id).first().speed
     else:
         keyboards = DEFAULT_KEYBOARDS
-    return render_template("index.html", keyboards=keyboards)
+        audio_speed = 1
+    return render_template("index.html", keyboards=keyboards, audio_speed=audio_speed)
 
 @app.route("/about_us")
 def about_us():
@@ -57,39 +63,32 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
-        user.set_password(form.password.data)
-        db.session.add(user)
-        phrase_attrs = ("phrase1", "phrase2", "phrase3")
-        for i, (icon, phrases) in enumerate(DEFAULT_KEYBOARDS.items()):
-            db.session.add(Keyboard(
-                icon=icon,
-                position=i,
-                **{attr:val for attr, val in zip(phrase_attrs, phrases)}
-                ))
-        db.session.commit()
-        first_keyboard_id = Keyboard.query.order_by(Keyboard.id).all()[-1].id - 2
-        keyboard_ids = (first_keyboard_id + i for i in range(3))
+        add_user(form.username.data, form.email.data, form.password.data)
         user_id = User.query.filter_by(username=form.username.data).first().id
-        for keyboard_id in keyboard_ids:
-            db.session.add(UserKeyboard(user_id=user_id, keyboard_id=keyboard_id))
-        db.session.commit()
+        update_keyboards_db(DEFAULT_KEYBOARDS, user_id)
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
 @app.route("/profile", methods=["GET", "POST"])
-#@login_required
+@login_required
 def profile():
     form = ProfileForm()
     if form.accent_submit.data:
-        print("accent")
         if form.accent_form.validate(form):
-            print(form.accent_form.accent_dropdown.data)
+            accent = form.accent_form.accent_dropdown.data
+            gender = form.accent_form.gender_dropdown.data
+            speed = form.accent_form.speed.data
+            update_accent_db(accent, gender, speed)
     if form.password_submit.data:
         if form.password_form.validate(form):
-            print("password validated")
+            password = form.password_form.password.data
+            new_password = form.password_form.new_password.data
+            update_password_db(password, new_password)
+            logout_user()
+            return redirect(url_for("login"))
     if form.email_submit.data:
         if form.email_form.validate(form):
-            print("email validated")
-    keyboards = DEFAULT_KEYBOARDS
+            email = form.email_form.email.data
+            update_email_db(email)
+    keyboards = get_user_keyboards()
     return render_template("profile.html", form=form, keyboards=keyboards)
