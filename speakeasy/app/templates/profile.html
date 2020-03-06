@@ -33,7 +33,44 @@
 				}
 			}
 		}
-	} 
+	}
+	function showModal(keyboardnum){
+		alert("Showing modal"+String(keyboardnum));
+			// Get the modal
+			var modal = document.getElementById("myModal");
+			if (modal.classList.contains("show")) {
+					modal.classList.remove("show");
+			}
+			else {
+					modal.classList.add("show");
+			}
+			// Get the button that opens the modal
+
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close")[0];
+
+			// When the user clicks the button, open the modal
+			btn.onclick = function() {
+	  	modal.style.display = "block";
+			}
+
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+	  	modal.style.display = "none";
+			}
+
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+	  	if (event.target == modal) {
+	    	modal.style.display = "none";
+	  		}
+			}
+
+	}
+
+function changeIcon(keyboardid, newicon){
+	document.getElementById("keyboardicon"+String(keyboardid)).innerHTML = newicon;
+}
 
 </script>
 
@@ -64,7 +101,7 @@
 			{{ form.accent_form.speed.label }}
 			<output for="age" id="selected-age">{{ form.accent_form.speed.data }}</output>
 			{{ form.accent_form.speed(min=0, max=100, oninput="outputUpdate(value)") }}
-			
+
 			{% for error in form.accent_form.speed.errors %}
 			<span class="error">[{{ error }}]</span>
 			{% endfor %}
@@ -114,21 +151,22 @@
 
 	<div id="keyboardsettings">
 		{% for i in range(keyboardkeys|length) %}
-
 			<div id="keyboardsetting{{ i }}">
 
-				 <div class="icondropdown">
-					<button id="keyboardicon{{ i }}" class="iconbutton" onClick="showIconDropdown({{ i }})">&#x{{ keyboardkeys[i][2:] }}</button>
-					<div id="iconselect{{ i }}" class="iconoptions">
-						<a href="#">Link 1</a>
-						<a href="#">Link 2</a>
-						<a href="#">Link 3</a>
+					<!-- to create modal -->
+					<div id = "myModal" class="modal show">
+					<!-- modal content -->
+						<div class = "modal-content">
+							<span>hey</span>
+							<p>Some text in the modal..</p>
+							<button class="iconbutton">Icon1</button>
+						</div>
 					</div>
-				</div> 
 
-				{% for j in range(3) %}
-					<input type="text" id="phrasesetting{{ i }}{{ j }}" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][j] }}"><br>
-				{% endfor %}
+				<button id="keyboardicon{{ i }}" class="iconbutton" onClick="showModal({{ i }})">&#x{{ keyboardkeys[i][2:] }}</button>
+				<input type="text" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][0] }}"><br>
+				<input type="text" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][1] }}"><br>
+				<input type="text" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][2] }}"><br>
 				<br><br>
 			</div>
 
