@@ -1,5 +1,3 @@
-//let button = document.getElementById("speech_text_button");
-//button.addEventListener("click", click_handler);
 window.addEventListener('keydown', windowKeydownHandler, true);
 let last_key_was_space = false;
 
@@ -79,6 +77,7 @@ function play_mp3(val) {
         let url = window.URL.createObjectURL(blob)
         window.audio = new Audio();
         window.audio.src = url;
+		window.audio.playbackRate = audio_speed;
         window.audio.play();
     })
     .catch((error) => {

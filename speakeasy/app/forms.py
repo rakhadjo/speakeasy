@@ -28,12 +28,12 @@ class RegistrationForm(FlaskForm):
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
-            raise ValidationError('Please use a different username.')
+            raise ValidationError('This username is already taken.')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
-            raise ValidationError('Please use a different email address.')
+            raise ValidationError('This email is already taken')
 
 class AccentProfileForm(FlaskForm):
     accents = (voice.name for voice in speech_client.list_voices().voices)
@@ -50,12 +50,17 @@ class AccentProfileForm(FlaskForm):
 
 class PasswordProfileForm(FlaskForm):
     password = PasswordField("Current Password", validators=[DataRequired()])
-    new_password = PasswordField("Change Password", validators=[DataRequired()])
+    new_password = PasswordField("Change Password", validators=[DataRequired(), Length(6,20)])
     new_password2 = PasswordField(
-            "Repeat password", validators=[DataRequired(), EqualTo("password")])
+            "Repeat password", validators=[DataRequired(), EqualTo("new_password")])
 
 class EmailProfileForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is not None:
+            raise ValidationError("This email is already taken.")
 
 class ProfileForm(FlaskForm):
     accent_form = FormField(AccentProfileForm)

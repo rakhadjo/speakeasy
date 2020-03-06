@@ -6,70 +6,92 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/profile.js') }}"></script>
 {% set keyboardkeys = keyboards.keys()|list %}
 <script>
-	function showIconDropdown(keyboardnum) {
-		for (let i = 0; i < {{ keyboardkeys|length }}; i++) {
-			let keyboard = document.getElementById("iconselect" + String(i));
-			let keyboardbutton = document.getElementById("keyboardicon" + String(i));
-			if (keyboardnum == i) {
-				if (!(keyboard.classList.contains("show"))) {
-				    keyboard.classList.add("show");
-				}
-				else {
-				    keyboard.classList.remove("show");
-				}
+function showIconDropdown(keyboardnum) {
+	for (let i = 0; i < {{ keyboardkeys|length }}; i++) {
+		let keyboard = document.getElementById("iconselect" + String(i));
+		let keyboardbutton = document.getElementById("keyboardicon" + String(i));
+		if (keyboardnum == i) {
+			if (!(keyboard.classList.contains("show"))) {
+				keyboard.classList.add("show");
+			}
+			else {
+				keyboard.classList.remove("show");
+			}
 
-				if (!(keyboardbutton.classList.contains("active"))) {
-				    keyboardbutton.classList.add("active");
-				}
-				else {
-				    keyboardbutton.classList.remove("active");
-				}
-			} else {
-				if (keyboard.classList.contains("show")) {
-				    keyboard.classList.remove("show");
-				}
-				if (keyboardbutton.classList.contains("active")) {
-				    keyboardbutton.classList.remove("active");
-				}
+			if (!(keyboardbutton.classList.contains("active"))) {
+				keyboardbutton.classList.add("active");
+			}
+			else {
+				keyboardbutton.classList.remove("active");
+			}
+		} else {
+			if (keyboard.classList.contains("show")) {
+				keyboard.classList.remove("show");
+			}
+			if (keyboardbutton.classList.contains("active")) {
+				keyboardbutton.classList.remove("active");
 			}
 		}
 	}
-	function showModal(keyboardnum){
-		alert("Showing modal"+String(keyboardnum));
-			// Get the modal
-			var modal = document.getElementById("myModal");
-			if (modal.classList.contains("show")) {
-					modal.classList.remove("show");
-			}
-			else {
-					modal.classList.add("show");
-			}
-			// Get the button that opens the modal
+}
 
-			// Get the <span> element that closes the modal
-			var span = document.getElementsByClassName("close")[0];
+function showModal(keyboardnum){
+	alert("Showing modal"+String(keyboardnum));
+		// Get the modal
+		var modal = document.getElementById("myModal");
+		if (modal.classList.contains("show")) {
+				modal.classList.remove("show");
+		}
+		else {
+				modal.classList.add("show");
+		}
+		// Get the button that opens the modal
 
-			// When the user clicks the button, open the modal
-			btn.onclick = function() {
-	  	modal.style.display = "block";
-			}
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
 
-			// When the user clicks on <span> (x), close the modal
-			span.onclick = function() {
-	  	modal.style.display = "none";
-			}
+		// When the user clicks the button, open the modal
+		btn.onclick = function() {
+	modal.style.display = "block";
+		}
 
-			// When the user clicks anywhere outside of the modal, close it
-			window.onclick = function(event) {
-	  	if (event.target == modal) {
-	    	modal.style.display = "none";
-	  		}
-			}
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
+	modal.style.display = "none";
+		}
 
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+	if (event.target == modal) {
+		modal.style.display = "none";
+		}
 	}
+
+}
 
 function changeIcon(keyboardid, newicon){
 	document.getElementById("keyboardicon"+String(keyboardid)).innerHTML = newicon;
+}
+
+function swapkeyboards(id1, id2) {
+
+	// temp = id1
+	var icon = document.getElementById("keyboardicon" + String(id1)).innerHTML;
+	var p1 = document.getElementById("phrasesetting" + String(id1)+"0").value;
+	var p2 = document.getElementById("phrasesetting" + String(id1)+"1").value;
+	var p3 = document.getElementById("phrasesetting" + String(id1)+"2").value;
+
+	// id1 = id2
+	document.getElementById("keyboardicon" + String(id1)).innerHTML = document.getElementById("keyboardicon" + String(id2)).innerHTML;
+	document.getElementById("phrasesetting" + String(id1)+String(0)).value = document.getElementById("phrasesetting" + String(id2)+String(0)).value;
+	document.getElementById("phrasesetting" + String(id1)+String(1)).value = document.getElementById("phrasesetting" + String(id2)+String(1)).value;
+	document.getElementById("phrasesetting" + String(id1)+String(2)).value = document.getElementById("phrasesetting" + String(id2)+String(2)).value;
+
+	// id2 = temp
+	document.getElementById("keyboardicon" + String(id2)).innerHTML = icon;
+	document.getElementById("phrasesetting" + String(id2)+String(0)).value = p1;
+	document.getElementById("phrasesetting" + String(id2)+String(1)).value = p2;
+	document.getElementById("phrasesetting" + String(id2)+String(2)).value = p3;
 }
 
 </script>
@@ -150,32 +172,81 @@ function changeIcon(keyboardid, newicon){
 	<h1>Custom Phrases</h1>
 
 	<div id="keyboardsettings">
-		{% for i in range(keyboardkeys|length) %}
-			<div id="keyboardsetting{{ i }}">
-
-					<!-- to create modal -->
-					<div id = "myModal" class="modal show">
-					<!-- modal content -->
-						<div class = "modal-content">
-							<span>hey</span>
-							<p>Some text in the modal..</p>
-							<button class="iconbutton">Icon1</button>
-						</div>
-					</div>
-
-				<button id="keyboardicon{{ i }}" class="iconbutton" onClick="showModal({{ i }})">&#x{{ keyboardkeys[i][2:] }}</button>
-				<input type="text" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][0] }}"><br>
-				<input type="text" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][1] }}"><br>
-				<input type="text" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][2] }}"><br>
-				<br><br>
+		<!-- to create modal -->
+		<div id = "myModal" class="modal show">
+		<!-- modal content -->
+			<div class = "modal-content">
+				<span>hey</span>
+				<p>Some text in the modal..</p>
+				<button class="iconbutton">Icon1</button>
 			</div>
+		</div>
 
+		{% for i in range(5) %}
+			
+			{% if i < keyboardkeys|length %}
+
+				<div id="keyboardsetting{{ i }}" class="keyboardsetting show">
+
+					 <div class="icondropdown">
+						<button id="keyboardicon{{ i }}" class="iconbutton" onClick="showIconDropdown({{ i }})">&#x{{ keyboardkeys[i][2:] }}</button>
+						<div id="iconselect{{ i }}" class="iconoptions">
+							<a href="#">Link 1</a>
+							<a href="#">Link 2</a>
+							<a href="#">Link 3</a>
+						</div>
+					</div> 
+
+						<input type="text" id="phrasesetting{{ i }}0" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][0] }}">
+						{% if i != 0 %}
+						<button class="arrow show" onClick="swapkeyboards({{ i }}, {{ i-1 }})">▲</button>
+						{% endif %}
+						<br><input type="text" id="phrasesetting{{ i }}1" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][1] }}">
+						<button class="add show">-</button>
+						<br><input type="text" id="phrasesetting{{ i }}2" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][2] }}">
+						{% if i != keyboardkeys|length - 1 %}
+						<button class="arrow show" onClick="swapkeyboards({{ i }}, {{ i+1 }})">▼</button>
+						{% else %}
+						<button class="arrow" onClick="swapkeyboards({{ i }}, {{ i+1 }})">▼</button>
+						{% endif %}
+					<br><br>
+				</div>
+
+			{% else %}
+
+				<div id="keyboardsetting{{ i }}" class="keyboardsetting">
+
+					 <div class="icondropdown">
+						<button id="keyboardicon{{ i }}" class="iconbutton" onClick="showIconDropdown({{ i }})">&#x003F</button>
+						<div id="iconselect{{ i }}" class="iconoptions">
+							<a href="#">Link 1</a>
+							<a href="#">Link 2</a>
+							<a href="#">Link 3</a>
+						</div>
+					</div> 
+
+						<input type="text" id="phrasesetting{{ i }}0" class="phrasesetting" value="Insert new">
+						{% if i != 0 %}
+						<button class="arrow show" onClick="swapkeyboards({{ i }}, {{ i-1 }})">▲</button>
+						{% endif %}
+						<br><input type="text" id="phrasesetting{{ i }}1" class="phrasesetting" value="Phrases for">
+						<button class="add show">-</button>
+						<br><input type="text" id="phrasesetting{{ i }}2" class="phrasesetting" value="This keyboard">
+						{% if i != keyboardkeys|length - 1 %}
+						<button class="arrow show" onClick="swapkeyboards({{ i }}, {{ i+1 }})">▼</button>
+						{% else %}
+						<button class="arrow" onClick="swapkeyboards({{ i }}, {{ i+1 }})">▼</button>
+						{% endif %}
+					<br><br>
+				</div>
+
+			{% endif %}
 		{% endfor %}
+
+		<button class="add show" style="margin-left: 260px;">+</button>
 	</div>
 
-	<form action="/keyboards" method="post">
-		<input name="keyboard_submit" type="submit" value="Save">
-	</form>
+	<button onclick="updateKeyboards();">Save</button>
 
 </div>
 {% endblock %}
