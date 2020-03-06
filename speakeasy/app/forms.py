@@ -50,7 +50,7 @@ class AccentProfileForm(FlaskForm):
 
 class PasswordProfileForm(FlaskForm):
     password = PasswordField("Current Password", validators=[DataRequired()])
-    new_password = PasswordField("Change Password", validators=[DataRequired(), Length(6,20])
+    new_password = PasswordField("Change Password", validators=[DataRequired(), Length(6,20)])
     new_password2 = PasswordField(
             "Repeat password", validators=[DataRequired(), EqualTo("new_password")])
 
