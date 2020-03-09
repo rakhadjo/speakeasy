@@ -209,10 +209,7 @@ button.arrow:active, button.arrow:hover {
 	display: none;
 }
 
-.show {
-	visibility: inherit;
-	display: inline;
-}
+
 
 .bullet {
 	background-color: #D46A6A;
@@ -286,4 +283,9 @@ input[type=submit] {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+.show {
+	visibility: inherit;
+	display: inline;
 }

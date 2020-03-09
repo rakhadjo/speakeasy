@@ -6,72 +6,37 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/profile.js') }}"></script>
 {% set keyboardkeys = keyboards.keys()|list %}
 <script>
-function showIconDropdown(keyboardnum) {
-	for (let i = 0; i < {{ keyboardkeys|length }}; i++) {
-		let keyboard = document.getElementById("iconselect" + String(i));
-		let keyboardbutton = document.getElementById("keyboardicon" + String(i));
-		if (keyboardnum == i) {
-			if (!(keyboard.classList.contains("show"))) {
-				keyboard.classList.add("show");
-			}
-			else {
-				keyboard.classList.remove("show");
-			}
-
-			if (!(keyboardbutton.classList.contains("active"))) {
-				keyboardbutton.classList.add("active");
-			}
-			else {
-				keyboardbutton.classList.remove("active");
-			}
-		} else {
-			if (keyboard.classList.contains("show")) {
-				keyboard.classList.remove("show");
-			}
-			if (keyboardbutton.classList.contains("active")) {
-				keyboardbutton.classList.remove("active");
-			}
-		}
+function closeModal() {
+	var modal = document.getElementById("myModal");
+	if (modal.classList.contains("show")) {
+		modal.classList.remove("show");
 	}
-}
-
-function showModal(keyboardnum){
-	alert("Showing modal"+String(keyboardnum));
-		// Get the modal
-		var modal = document.getElementById("myModal");
-		if (modal.classList.contains("show")) {
-				modal.classList.remove("show");
-		}
-		else {
-				modal.classList.add("show");
-		}
-		// Get the button that opens the modal
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks the button, open the modal
-		btn.onclick = function() {
-	modal.style.display = "block";
-		}
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() {
-	modal.style.display = "none";
-		}
-
-		// When the user clicks anywhere outside of the modal, close it
-		window.onclick = function(event) {
-	if (event.target == modal) {
-		modal.style.display = "none";
-		}
-	}
-
 }
 
 function changeIcon(keyboardid, newicon){
 	document.getElementById("keyboardicon"+String(keyboardid)).innerHTML = newicon;
 }
+
+
+function showModal(keyboardnum){
+	// Get the modal
+	var modal = document.getElementById("myModal");
+	if (modal.classList.contains("show")) {
+		modal.classList.remove("show");
+	}
+	else {
+		modal.classList.add("show");
+	}
+
+	var iconbuttons = document.querySelectorAll('div.modalbuttons button');
+	for ( var counter = 0; counter < iconbuttons.length; counter++)
+	{
+		var newicon = iconbuttons[counter].innerHTML;
+		iconbuttons[counter].setAttribute("onclick","changeIcon("+keyboardnum+", "+newicon+")");
+	}
+}
+
+
 
 function swapkeyboards(id1, id2) {
 
@@ -173,12 +138,19 @@ function swapkeyboards(id1, id2) {
 
 	<div id="keyboardsettings">
 		<!-- to create modal -->
-		<div id = "myModal" class="modal show">
+		<div id = "myModal" class="modal">
 		<!-- modal content -->
-			<div class = "modal-content">
-				<span>hey</span>
-				<p>Some text in the modal..</p>
-				<button class="iconbutton">Icon1</button>
+			<div class="modal-content">
+				<button class="close" onclick="closeModal()">Close</button>
+				<p>Select new icon</p>
+				<div class="modalbuttons">
+					<button class="iconbutton">☎</button>
+					<button class="iconbutton">☀</button>
+					<button class="iconbutton">★</button>
+					<button class="iconbutton">☃</button>
+					<button class="iconbutton">☠</button>
+					<button class="iconbutton">☻</button>
+				</div>
 			</div>
 		</div>
 
@@ -188,14 +160,9 @@ function swapkeyboards(id1, id2) {
 
 				<div id="keyboardsetting{{ i }}" class="keyboardsetting show">
 
-					 <div class="icondropdown">
-						<button id="keyboardicon{{ i }}" class="iconbutton" onClick="showIconDropdown({{ i }})">&#x{{ keyboardkeys[i][2:] }}</button>
-						<div id="iconselect{{ i }}" class="iconoptions">
-							<a href="#">Link 1</a>
-							<a href="#">Link 2</a>
-							<a href="#">Link 3</a>
-						</div>
-					</div> 
+
+						<button id="keyboardicon{{ i }}" class="iconbutton" onClick="showModal({{ i }})">&#x{{ keyboardkeys[i][2:] }}</button>
+
 
 						<input type="text" id="phrasesetting{{ i }}0" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][0] }}">
 						{% if i != 0 %}
@@ -216,14 +183,9 @@ function swapkeyboards(id1, id2) {
 
 				<div id="keyboardsetting{{ i }}" class="keyboardsetting">
 
-					 <div class="icondropdown">
-						<button id="keyboardicon{{ i }}" class="iconbutton" onClick="showIconDropdown({{ i }})">&#x003F</button>
-						<div id="iconselect{{ i }}" class="iconoptions">
-							<a href="#">Link 1</a>
-							<a href="#">Link 2</a>
-							<a href="#">Link 3</a>
-						</div>
-					</div> 
+
+						<button id="keyboardicon{{ i }}" class="iconbutton" onClick="showModal({{ i }})">&#x003F</button>
+
 
 						<input type="text" id="phrasesetting{{ i }}0" class="phrasesetting" value="Insert new">
 						{% if i != 0 %}
