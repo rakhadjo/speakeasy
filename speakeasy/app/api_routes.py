@@ -64,12 +64,15 @@ def clean_keyboard(keyboard):
         return False
     icon, phrases = keyboard
     if isinstance(icon, str):
+        #Later check if it is an allowed symbol
         if len(icon) != 1:
             return False
     else:
         return False
     if isinstance(phrases, list):
         if len(phrases) != 3 or not all(isinstance(phrase, str) for phrase in phrases):
+            return False
+        if not all(0 < len(phrase) and len(phrase) < 30 for phrase in phrases):
             return False
     else:
         return False
