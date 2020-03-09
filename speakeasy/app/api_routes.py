@@ -52,20 +52,19 @@ def update_keyboards():
         if not clean_keyboard(keyboard):
             return jsonify(False)
         icon, phrases = keyboard
-        keyboards[icon] = phrases
+        keyboards["U+" + icon.encode("unicode_escape")[2:].decode("utf8")] = phrases
     update_keyboards_db(keyboards)
     return jsonify(True)
 
 def clean_keyboard(keyboard):
-    if isinstance(keyboard, list) and len(keyboard) != 2:
-        return False
+    if isinstance(keyboard, list):
+        if len(keyboard) != 2:
+            return False
     else:
         return False
     icon, phrases = keyboard
-    if isinstance(icon, str) and len(icon) > 2:
-        try:
-            chr(int(icon[2:], 16)) #Tries to convert hex value into unicode char
-        except ValueError:
+    if isinstance(icon, str):
+        if len(icon) != 1:
             return False
     else:
         return False
