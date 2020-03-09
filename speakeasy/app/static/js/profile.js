@@ -17,7 +17,7 @@ function updateKeyboards() {
 	}
 	sendKeyboards(keyboards)
 	.then((response) => display_response(response))
-	.catch((error) => alert("Error: could not connect to database"))
+	.catch((error) => alert("Error: could not connect to database")) //Handle this properly
 }
 
 async function sendKeyboards(keyboards) {
@@ -32,5 +32,9 @@ async function sendKeyboards(keyboards) {
 }
 
 function display_response(response) {
-	console.log(response);
+	if (response) {
+		document.getElementById("keyboard_success").innerText = '\u2714';
+	} else {
+		document.getElementById("keyboard_success").innerText = '\u2717';
+	}
 }
