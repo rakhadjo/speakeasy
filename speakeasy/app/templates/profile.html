@@ -32,7 +32,10 @@ function showModal(keyboardnum){
 	for ( var counter = 0; counter < iconbuttons.length; counter++)
 	{
 		var newicon = iconbuttons[counter].innerHTML;
-		iconbuttons[counter].setAttribute("onclick","changeIcon("+keyboardnum+", "+newicon+")");
+		iconbuttons[counter].onclick = function () {
+			changeIcon(keyboardnum, this.innerHTML);
+			closeModal();
+		};
 	}
 }
 
@@ -141,15 +144,18 @@ function swapkeyboards(id1, id2) {
 		<div id = "myModal" class="modal">
 		<!-- modal content -->
 			<div class="modal-content">
-				<button class="close" onclick="closeModal()">Close</button>
+				<button class="close arrow show" onclick="closeModal()">X</button>
 				<p>Select new icon</p>
 				<div class="modalbuttons">
-					<button class="iconbutton">☎</button>
-					<button class="iconbutton">☀</button>
-					<button class="iconbutton">★</button>
-					<button class="iconbutton">☃</button>
-					<button class="iconbutton">☠</button>
-					<button class="iconbutton">☻</button>
+					<button class="iconbutton padded">☎</button>
+					<button class="iconbutton padded">☀</button>
+					<button class="iconbutton padded">★</button>
+					<button class="iconbutton padded">☃</button>
+					<button class="iconbutton padded">☠</button>
+					<button class="iconbutton padded">☻</button>
+					<button class="iconbutton padded">X</button>
+					<button class="iconbutton padded">Y</button>
+					<button class="iconbutton padded">Z</button>
 				</div>
 			</div>
 		</div>
