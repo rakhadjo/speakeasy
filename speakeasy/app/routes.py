@@ -43,7 +43,11 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
+        if user is None:
+            flash('Wrong username')
+            return redirect(url_for('login'))
+        if not user.check_password(form.password.data):
+            flash('Wrong password')
             return redirect(url_for('login'))
         login_user(user)
         next_page = request.args.get('next')
