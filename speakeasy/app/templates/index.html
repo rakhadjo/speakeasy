@@ -6,27 +6,30 @@
 
 {% set keyboardkeys = keyboards.keys()|list %}
 
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 <script>
-	function switchKeyboard(keyboardnum) {
-		for (let i = 0; i < {{ keyboardkeys|length }}; i++) {
-			let keyboard = document.getElementById("keyboard" + String(i));
-			let keyboardbutton = document.getElementById("keyboardbutton" + String(i));
-			if (keyboardnum == i) {
-				keyboard.style.display = "block";
-				if (!(keyboardbutton.classList.contains("active"))) {
-				    keyboardbutton.classList.add("active");
-				}
-			} else {
-				keyboard.style.display = "none";
-				if (keyboardbutton.classList.contains("active")) {
-				    keyboardbutton.classList.remove("active");
-				}
+
+let audio_speed = {{ audio_speed }};
+
+function switchKeyboard(keyboardnum) {
+	for (let i = 0; i < {{ keyboardkeys|length }}; i++) {
+		let keyboard = document.getElementById("keyboard" + String(i));
+		let keyboardbutton = document.getElementById("keyboardbutton" + String(i));
+		if (keyboardnum == i) {
+			keyboard.style.display = "block";
+			if (!(keyboardbutton.classList.contains("active"))) {
+				keyboardbutton.classList.add("active");
+			}
+		} else {
+			keyboard.style.display = "none";
+			if (keyboardbutton.classList.contains("active")) {
+				keyboardbutton.classList.remove("active");
 			}
 		}
-	} 
-
-	let audio_speed = {{ audio_speed }};
+	}
+} 
 
 </script>
 
