@@ -17,17 +17,15 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Sign In')
 
-   def validate_user(self,field):
-       user = User.query.filter_by(username=username.data).first()
-       if user is None:
-           raise ValidationError('User does not exist')
+    def validate_username(self,field):
+        user = User.query.filter_by(username=self.username.data).first()
+        if user is None:
+            raise ValidationError('User does not exist')
 
-   def validate_password(self,field):
-       user = User.query.filter_by(username=username.data).first()
-       if user is None:
-           raise ValidationError()
-       if not user.validate_password(self.password.data):
-           raise ValidationError('Password incorrect')
+    def validate_password(self,field):
+        user = User.query.filter_by(username=self.username.data).first()
+        if user is not None and not user.check_password(self.password.data):
+            raise ValidationError('Password incorrect')
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(3,10)])
