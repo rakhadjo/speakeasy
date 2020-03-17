@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}SpeakEasy{% endblock %}
+
+{% block content %}
+
+{% set keyboardkeys = keyboards.keys()|list %}
+
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+<script>
+
+hotkeys.filter = function(event){
+  var tagName = (event.target || event.srcElement).tagName;
+  hotkeys.setScope(/^(INPUT|TEXTAREA|SELECT)$/.test(tagName) ? 'input' : 'other');
+  return true;
+}
+
+hotkeys('alt+ctrl+c,alt+ctrl+x, alt+ctrl+z,alt+ctrl+v,alt+ctrl+b,ctrl+shift+z,ctrl+shift+x,ctrl+shift+c', function (event, handler){
+  switch (handler.key) {
+    case 'alt+ctrl+z': 
+    		switchKeyboard(0);
+      break;
+    case 'alt+ctrl+x': 
+    		switchKeyboard(1);
+      break;
+    case 'alt+ctrl+c': 
+    		switchKeyboard(2);
+      break;
+    case 'alt+ctrl+v': 
+    		switchKeyboard(4);
+      break;
+    case 'alt+ctrl+b': 
+    		switchKeyboard(5);
+      break;
+    case 'ctrl+shift+z': 
+    		insert(0)
+      break;
+    case 'ctrl+shift+x': 
+    		insert(1)
+      break;
+    case 'ctrl+shift+c': 
+    		insert(2)
+      break;
+    default: alert("Not a valid shortcut");
+  }
+});
+
+</script>
+
+<script>
+	function switchKeyboard(keyboardnum) {
+		for (let i = 0; i < {{ keyboardkeys|length }}; i++) {
+			let keyboard = document.getElementById("keyboard" + String(i));
+			let keyboardbutton = document.getElementById("keyboardbutton" + String(i));
+			if (keyboardnum == i) {
+				keyboard.style.display = "block";
+				if (!(keyboardbutton.classList.contains("active"))) {
+				    keyboardbutton.classList.add("active");
+				}
+			} else {
+				keyboard.style.display = "none";
+				if (keyboardbutton.classList.contains("active")) {
+				    keyboardbutton.classList.remove("active");
+				}
+			}
+		}
+	} 
+
+	let audio_speed = {{ audio_speed }};
+
+</script>
+
+	<h1>Type and Be Heard</h1>
+
+	<div class="column70">
+		<form>
+    		<textarea name="speech_text" id="speech_text_input" autofocus></textarea>
+    	</form>
+
+		<div class="keyboards">
+			{% for i in range(keyboardkeys|length) %}
+				<button id="keyboardbutton{{ i }}" onClick="switchKeyboard({{ i }})">&#x{{ keyboardkeys[i][2:] }}</button>
+			{% endfor %}
+		</div>
+
+		<div class="phrases">
+
+			{% for i in range(keyboardkeys|length) %}
+
+			<div id="keyboard{{ i }}">
+				<span class="bullet">&nbsp1&nbsp</span>
+				<span class="phrase">{{ keyboards[keyboardkeys[i]][0] }}</span>
+				<hr>
+				<span class="bullet">&nbsp2&nbsp</span>
+				<span class="phrase">{{ keyboards[keyboardkeys[i]][1] }}</span>
+				<hr>
+				<span class="bullet">&nbsp3&nbsp</span>
+				<span class="phrase">{{ keyboards[keyboardkeys[i]][2] }}</span>
+			</div>
+
+			{% endfor %}
+
+			<script>switchKeyboard(0)</script>
+
+
+		</div>
+
+
+	</div>
+
+
+	<div class="column30">
+		<div class="predictwords">
+			<span class="bullet">&nbsp1&nbsp</span>
+			<span id="suggest1">Hello</span>
+			<hr>
+			<span class="bullet">&nbsp2&nbsp</span>
+			<span id="suggest2">This</span>
+			<hr>
+			<span class="bullet">&nbsp3&nbsp</span>
+			<span id="suggest3">Would</span>
+		</div>
+	</div>
+
+{% endblock %}
