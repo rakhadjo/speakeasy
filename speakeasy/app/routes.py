@@ -48,7 +48,8 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         return redirect(next_page)
-    return render_template("login.html", title="Sign in", form=form)
+    return render_template("login.html", title="Sign in", form=form,
+            message=request.args.get("message"))
 
 @app.route("/logout")
 def logout():
@@ -89,7 +90,7 @@ def profile():
             new_password = form.password_form.new_password.data
             update_password_db(password, new_password)
             logout_user()
-            return redirect(url_for("login"))
+            return redirect(url_for("login", message="Password changed."))
     if form.email_submit.data:
         if form.email_form.validate(form):
             email = form.email_form.email.data

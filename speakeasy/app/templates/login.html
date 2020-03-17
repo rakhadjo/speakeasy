@@ -5,6 +5,9 @@
 {% block content %}
 <div class="column30">
 	<h1>Sign In</h1>
+	{% if message %}
+	<h5> {{message}} </h5>
+	{% endif %}
 	<form action="" method="post" novalidate>
 		{{ form.hidden_tag() }}
 		<p>

@@ -64,8 +64,6 @@ def update_accent_db(accent, gender, speed):
 
 def update_password_db(password, new_password):
     user = User.query.filter_by(id=current_user.id).first()
-    if not user.check_password(password):
-        return
     user.set_password(new_password)
     db.session.commit()
 

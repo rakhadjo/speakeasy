@@ -11,6 +11,7 @@ from wtforms.fields.html5 import IntegerRangeField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import User
 from app import speech_client
+from flask_login import current_user
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -63,6 +64,12 @@ class PasswordProfileForm(FlaskForm):
     new_password = PasswordField("Change Password", validators=[DataRequired(), Length(6,20)])
     new_password2 = PasswordField(
             "Repeat password", validators=[DataRequired(), EqualTo("new_password")])
+
+    def validate_password(self, password):
+        user = User.query.filter_by(id=current_user.id).first()
+        if not user.check_password(password.data):
+            raise ValidationError("The password is incorrect")
+
 
 class EmailProfileForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
