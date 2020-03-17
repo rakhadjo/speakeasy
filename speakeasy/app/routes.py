@@ -70,7 +70,13 @@ def register():
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
-    form = ProfileForm()
+    user = User.query.filter_by(id=current_user.id).first()
+    data = {
+        "accent_dropdown": user.accent,
+        "gender_dropdown": user.gender,
+        "speed": int((user.speed - 1)*100 + 50)
+    }
+    form = ProfileForm(accent_form=data)
     if form.accent_submit.data:
         if form.accent_form.validate(form):
             accent = form.accent_form.accent_dropdown.data

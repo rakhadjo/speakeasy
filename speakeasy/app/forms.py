@@ -46,9 +46,9 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('This email is already taken')
 
 class AccentProfileForm(FlaskForm):
-    accents = (voice.name for voice in speech_client.list_voices().voices)
-    accents = (name for name in accents if name[:2] == "en")
-    accents = [(name, name) for name in accents]
+    countries = ("AU", "US", "IN", "GB")
+    accents = (f"en-{country}-Wavenet-A" for country in countries)
+    accents = [(accent, country) for accent, country in zip(accents, countries)]
     accent_dropdown = SelectField('Speaking Accent',
             choices = accents,
             validators = [DataRequired()])
@@ -56,7 +56,7 @@ class AccentProfileForm(FlaskForm):
     gender_dropdown = SelectField("Voice Gender",
             choices = genders,
             validators = [DataRequired()])
-    speed = IntegerRangeField("Speaking Speed", default = 50)
+    speed = IntegerRangeField("Speaking Speed", default=50)
 
 class PasswordProfileForm(FlaskForm):
     password = PasswordField("Current Password", validators=[DataRequired()])
