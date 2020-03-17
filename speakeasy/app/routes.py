@@ -95,4 +95,4 @@ def profile():
             email = form.email_form.email.data
             update_email_db(email)
     keyboards = get_user_keyboards()
-    return render_template("profile.html", form=form, keyboards=keyboards)
+    return render_template("profile.html", form=form, keyboards=keyboards, email=user.email)

@@ -125,6 +125,8 @@ function swapkeyboards(id1, id2) {
 		<p>
 			{{ form.email_form.email.label }}
 			<br>
+			<span>Current email: {{ email }}</span>
+			<br>
 			{{ form.email_form.email(size=32) }}
 			{% for error in form.email_form.email.errors %}
 			<span class="error">[{{ error }}]</span>
