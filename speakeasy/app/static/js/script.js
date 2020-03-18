@@ -58,7 +58,7 @@ hotkeys('alt+shift+z, alt+shift+x, alt+shift+c, alt+shift+v, alt+shift+b, alt+z,
 			break;
 		case 'space':
 			if (last_state != e.target.value.trim()) {
-				let words = e.target.value.trim().split(" ");
+				let words = e.target.value.trim().split(".");
 				let user_word = words[words.length - 1];
 				update_suggested_words(user_word);
 				last_state = e.target.value.trim();
@@ -141,7 +141,7 @@ async function get_suggested_words(word) {
 		headers: {
 			"Content-Type": "application/json"
 		},
-		body: JSON.stringify({"user_word": word})
+		body: JSON.stringify({"user_words": word})
 	});
 	return (await response.json())["suggested_words"];
 }
