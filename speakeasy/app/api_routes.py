@@ -1,7 +1,7 @@
 from flask import request, make_response, jsonify
 from google.cloud import texttospeech
 from flask_login import current_user
-from app import app, speech_client, db
+from app import app, speech_client, db, suggester
 from app.db_functions import update_keyboards_db
 from app.models import User
 
@@ -40,8 +40,9 @@ def speak():
 
 @app.route("/suggest", methods=["POST"])
 def suggest():
-    user_word = request.get_json()["user_word"]
-    suggested_words = [user_word + str(i) for i in range(3)]
+    user_words = request.get_json()["user_words"]
+    print(user_words)
+    suggested_words = suggester.prediction(user_words)
     return jsonify(suggested_words=suggested_words)
 
 @app.route("/updateKeyboards", methods=["POST"])
