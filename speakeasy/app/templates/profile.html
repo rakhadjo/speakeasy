@@ -62,28 +62,39 @@ function swapkeyboards(id1, id2) {
 	document.getElementById("phrasesetting" + String(id2)+String(2)).value = p3;
 }
 
-function addShow(){
-	var i;
+function addShow() {
 	// go through all keyboards. if keyboard isn't in class "show", add it, exit loop
-	for (i = 0; i < 5; i++){
+	for (let i = 0; i < 5; i++){
 		if (document.getElementById("keyboardsetting" + String(i)).classList.contains("show") == false){
+            if (!document.getElementById("keyboardsetting" + String(i)).classList.contains("show")) {
+                document.getElementById("arrow" + String(i)).classList.remove("show");
+            }
 			document.getElementById("keyboardsetting" + String(i)).classList.add("show");
+            document.getElementById("arrow" + String(i - 1)).classList.add("show");
 			break;
 		}
-		// hide button "+" when it's the last keyboard to show
-		if (i == 3){
-			document.getElementById("addButton").style.display = "none";
-		}
 	}
+    if (document.getElementById("keyboardsetting" + String(4)).classList.contains("show")) {
+        document.getElementById("addButton").style.display = "none";
+    }
 }
 
 function removeShow(keyboardsettingId){
-	var i;
-	for (i = 0; i < 5; i++){
+    if (!document.getElementById("keyboardsetting" + String(1)).classList.contains("show")) {
+        return;
+    }
+	for (let i = 0; i < 5; i++){
 		if (i == keyboardsettingId){
 			document.getElementById("keyboardsetting" + String(i)).classList.remove("show");
+            if (i == 4 || !document.getElementById("keyboardsetting" + String(i + 1)).classList.contains("show")) {
+                document.getElementById("arrow" + String(i - 1)).classList.remove("show");
+            }
+            break;
 		}
 	}
+    if (!document.getElementById("keyboardsetting" + String(4)).classList.contains("show")) {
+        document.getElementById("addButton").style.display = "";
+    }
 }
 
 </script>
@@ -202,9 +213,9 @@ function removeShow(keyboardsettingId){
 						<button class="add show" onClick="removeShow({{ i }})">-</button>
 						<br><input type="text" id="phrasesetting{{ i }}2" class="phrasesetting" value="{{ keyboards[keyboardkeys[i]][2] }}">
 						{% if i != keyboardkeys|length - 1 %}
-						<button class="arrow show" onClick="swapkeyboards({{ i }}, {{ i+1 }})">▼</button>
+						<button class="arrow show" id="arrow{{ i }}" onClick="swapkeyboards({{ i }}, {{ i+1 }})">▼</button>
 						{% else %}
-						<button class="arrow" onClick="swapkeyboards({{ i }}, {{ i+1 }})">▼</button>
+						<button class="arrow" id="arrow{{ i }}" onClick="swapkeyboards({{ i }}, {{ i+1 }})">▼</button>
 						{% endif %}
 					<br><br>
 				</div>
@@ -219,15 +230,15 @@ function removeShow(keyboardsettingId){
 
 						<input type="text" id="phrasesetting{{ i }}0" class="phrasesetting" value="Insert new">
 						{% if i != 0 %}
-						<button class="arrow show" onClick="swapkeyboards({{ i }}, {{ i-1 }})">▲</button>
+                        <button class="arrow show" onClick="swapkeyboards({{ i }}, {{ i-1 }})">▲</button>
 						{% endif %}
 						<br><input type="text" id="phrasesetting{{ i }}1" class="phrasesetting" value="Phrases for">
-						<button class="add show" onClick="removeShow()">-</button>
+                        <button class="add show" onClick="removeShow({{ i }})">-</button>
 						<br><input type="text" id="phrasesetting{{ i }}2" class="phrasesetting" value="This keyboard">
 						{% if i != keyboardkeys|length - 1 %}
-						<button class="arrow show" onClick="swapkeyboards({{ i }}, {{ i+1 }})">▼</button>
+						<button class="arrow show" id="arrow{{ i }}" onClick="swapkeyboards({{ i }}, {{ i+1 }})">▼</button>
 						{% else %}
-						<button class="arrow" onClick="swapkeyboards({{ i }}, {{ i+1 }})">▼</button>
+						<button class="arrow" id="arrow{{ i }}" onClick="swapkeyboards({{ i }}, {{ i+1 }})">▼</button>
 						{% endif %}
 					<br><br>
 				</div>
