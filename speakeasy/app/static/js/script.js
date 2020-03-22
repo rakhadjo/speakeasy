@@ -90,9 +90,9 @@ function insert(i, phrase) {
 	let old_text = document.getElementById("speech_text_input").value;
 	let new_text;
 	if (old_text.length > 0) {
-		new_text = old_text.trim() + " " + phrase + " ";
+		new_text = old_text.trim() + " " + phrase;
 	} else {
-		new_text = phrase + " ";
+		new_text = phrase;
 	}
 	document.getElementById("speech_text_input").value = new_text;
 }
