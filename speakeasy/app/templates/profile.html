@@ -246,7 +246,11 @@ function removeShow(keyboardsettingId){
 			{% endif %}
 		{% endfor %}
 
+        {% if keyboardkeys|length < 5 %}
 		<button id="addButton" class="add show" style="margin-left: 260px;" onClick="addShow()">+</button>
+        {% else %}
+		<button id="addButton" class="add show" style="margin-left: 260px;display: none" onClick="addShow()">+</button>
+        {% endif %}
 	</div>
 
 	<button onclick="updateKeyboards();">Save</button>
