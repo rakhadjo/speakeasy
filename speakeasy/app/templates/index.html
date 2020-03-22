@@ -33,9 +33,9 @@ function switchKeyboard(keyboardnum) {
 
 </script>
 
-	<h1>Type and Be Heard</h1>
 
 	<div class="column70">
+		<h1>Type and Be Heard</h1>
 		<form>
     		<textarea name="speech_text" id="speech_text_input" autofocus></textarea>
     	</form>
@@ -51,55 +51,62 @@ function switchKeyboard(keyboardnum) {
 			{% for i in range(keyboardkeys|length) %}
 
 			<div id="keyboard{{ i }}">
-				<span class="bullet">&nbsp1&nbsp</span>
+				<span class="bullet">&nbspZ&nbsp</span>
 				<span class="phrase">{{ keyboards[keyboardkeys[i]][0] }}</span>
 				<hr>
-				<span class="bullet">&nbsp2&nbsp</span>
+				<span class="bullet">&nbspX&nbsp</span>
 				<span class="phrase">{{ keyboards[keyboardkeys[i]][1] }}</span>
 				<hr>
-				<span class="bullet">&nbsp3&nbsp</span>
+				<span class="bullet">&nbspC&nbsp</span>
 				<span class="phrase">{{ keyboards[keyboardkeys[i]][2] }}</span>
 			</div>
 
 			{% endfor %}
 
 			<script>switchKeyboard(0)</script>
-
-
 		</div>
-
-
 	</div>
 
-
 	<div class="column30">
+		<h2>Predictions</h2>
 		<div class="predictwords">
-			<span class="bullet">&nbsp1&nbsp</span>
+			<span class="bullet">&nbspU&nbsp</span>
 			<span id="suggest1">Hello</span>
 			<hr>
-			<span class="bullet">&nbsp2&nbsp</span>
+			<span class="bullet">&nbsp&nbspI&nbsp&nbsp</span>
 			<span id="suggest2">This</span>
 			<hr>
-			<span class="bullet">&nbsp3&nbsp</span>
+			<span class="bullet">&nbspO&nbsp</span>
 			<span id="suggest3">Would</span>
 		</div>
-<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br>
 		<div>
-			<h1>Change keyboard</h1>
-			<span class="bullet">&nbspAlt&nbsp</span>
-			+ <span class="bullet">&nbspCtrl&nbsp</span>
-			+ <span class="bullet">&nbspZ&nbsp</span>
-			/ <span class="bullet">&nbspX&nbsp</span> 
-			/ <span class="bullet">&nbspC&nbsp</span>
-			/ <span class="bullet">&nbspV&nbsp</span> 
-			/ <span class="bullet">&nbspB&nbsp</span>
-
-			<h1>Insert phrase</h1>
-			<span class="bullet">&nbspCtrl&nbsp</span>
-			+ <span class="bullet">&nbspShift&nbsp</span>
-			+ <span class="bullet">&nbspZ&nbsp</span>
-			/ <span class="bullet">&nbspX&nbsp</span>
-			/ <span class="bullet">&nbspC&nbsp</span>
+			<h2>Keyboard Shortcuts</h2>
+			<table>
+				<tr>
+					<td><span class="bullet">&nbspAlt&nbsp</span> + <span class="bullet">&nbspShift&nbsp</span> +
+						<br><span class="bullet">&nbspZ&nbsp</span>
+						/ <span class="bullet">&nbspX&nbsp</span> 
+						/ <span class="bullet">&nbspC&nbsp</span>
+						/ <span class="bullet">&nbspV&nbsp</span> 
+						/ <span class="bullet">&nbspB&nbsp</span></td>
+					<td>Switch<br>Keyboard</td>
+				</tr>
+				<tr>
+					<td><span class="bullet">&nbspAlt&nbsp</span> + 
+						<br><span class="bullet">&nbspZ&nbsp</span>
+						/ <span class="bullet">&nbspX&nbsp</span>
+						/ <span class="bullet">&nbspC&nbsp</span></td>
+					<td>Insert<br>Phrase</td>
+				</tr>
+				<tr>
+					<td><span class="bullet">&nbspAlt&nbsp</span> + 
+						<br><span class="bullet">&nbspU&nbsp</span>
+						/ <span class="bullet">&nbspI&nbsp</span>
+						/ <span class="bullet">&nbspO&nbsp</span></td>
+					<td>Insert<br>Prediction</td>
+				</tr>
+			</table>
 		</div>
 	</div>
 

@@ -35,6 +35,7 @@ def update_keyboards_db(keyboards, user_id = None):
     phrase_attrs = ("phrase1", "phrase2", "phrase3")
     for i, ((icon, phrases), id) in enumerate(zip_extend(keyboards.items(), keyboard_ids)):
         if icon is None:
+            UserKeyboard.query.filter_by(keyboard_id=id).delete()
             Keyboard.query.filter_by(id=id).delete()
             continue
         if id is None:

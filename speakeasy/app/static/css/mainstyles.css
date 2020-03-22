@@ -1,3 +1,10 @@
+.main {
+	margin-left: 200px; /* Same as the width of the sidenav */
+	font-size: 25px; /* Increased text to enable scrolling */
+	padding: 0px 30px;
+	color: black;
+}
+
 body {
 	font-family: futura-pt, sans-serif;
 	font-style: normal;
@@ -10,6 +17,11 @@ h1 {
 	font-size: 40px;
 	width: 100%;
 }
+
+h2 {
+	color: #730000;
+}
+
 
 p {
 	overflow: hidden;
@@ -65,12 +77,7 @@ p {
 	padding-bottom: 20px;
 }
 
-.main {
-	margin-left: 200px; /* Same as the width of the sidenav */
-	font-size: 25px; /* Increased text to enable scrolling */
-	padding: 0px 30px;
-	color: black;
-}
+
 
 .column50 {
 	width: 40%;
@@ -85,13 +92,13 @@ p {
 }
 
 .column70 {
-	width: 70%;
+	width: 60%;
 	padding-right: 50px;
 	float: left;
 }
 
 .column30 {
-	width: 20%;
+	width: 25%;
 	padding-right: 20px;
 	float: left;
 }
@@ -301,4 +308,18 @@ input[type=submit] {
 .show {
 	visibility: inherit;
 	display: inline;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+  
+table, th, td {
+	border: 1px solid #D46A6A;
+}
+
+th, td {
+	padding: 10px;
+	text-align: center;
 }
