@@ -43,14 +43,13 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
-            return redirect(url_for('login'))
         login_user(user)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         return redirect(next_page)
-    return render_template("login.html", title="Sign in", form=form)
+    return render_template("login.html", title="Sign in", form=form,
+            message=request.args.get("message"))
 
 @app.route("/logout")
 def logout():
@@ -72,7 +71,13 @@ def register():
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
-    form = ProfileForm()
+    user = User.query.filter_by(id=current_user.id).first()
+    data = {
+        "accent_dropdown": user.accent,
+        "gender_dropdown": user.gender,
+        "speed": int((user.speed - 1)*100 + 50)
+    }
+    form = ProfileForm(accent_form=data)
     if form.accent_submit.data:
         if form.accent_form.validate(form):
             accent = form.accent_form.accent_dropdown.data
@@ -85,10 +90,10 @@ def profile():
             new_password = form.password_form.new_password.data
             update_password_db(password, new_password)
             logout_user()
-            return redirect(url_for("login"))
+            return redirect(url_for("login", message="Password changed."))
     if form.email_submit.data:
         if form.email_form.validate(form):
             email = form.email_form.email.data
             update_email_db(email)
     keyboards = get_user_keyboards()
-    return render_template("profile.html", form=form, keyboards=keyboards)
+    return render_template("profile.html", form=form, keyboards=keyboards, email=user.email)

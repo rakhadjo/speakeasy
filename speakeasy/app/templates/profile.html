@@ -160,6 +160,8 @@ function removeShow(keyboardsettingId){
 		<p>
 			{{ form.email_form.email.label }}
 			<br>
+			<span style="font-size: medium;">Current email: {{ email }}</span>
+			<br>
 			{{ form.email_form.email(size=32) }}
 			{% for error in form.email_form.email.errors %}
 			<span class="error">[{{ error }}]</span>
@@ -182,15 +184,16 @@ function removeShow(keyboardsettingId){
 				<button class="close arrow show" onclick="closeModal()">X</button>
 				<p>Select new icon</p>
 				<div class="modalbuttons">
-					<button class="iconbutton padded">☎</button>
-					<button class="iconbutton padded">☀</button>
-					<button class="iconbutton padded">★</button>
-					<button class="iconbutton padded">☃</button>
-					<button class="iconbutton padded">☠</button>
 					<button class="iconbutton padded">☻</button>
-					<button class="iconbutton padded">X</button>
-					<button class="iconbutton padded">Y</button>
-					<button class="iconbutton padded">Z</button>
+					<button class="iconbutton padded">◷</button>
+					<button class="iconbutton padded">☎</button>
+					<button class="iconbutton padded">⌨</buhttps://graphemica.com/%F0%9F%8D%B4tton>
+					<button class="iconbutton padded">☕</button>
+					<button class="iconbutton padded">🍴</button>
+					<button class="iconbutton padded">⚛</button>
+					<button class="iconbutton padded">∑</button>
+					<button class="iconbutton padded">?</button>
+					<button class="iconbutton padded">&</button>
 				</div>
 			</div>
 		</div>
@@ -253,7 +256,7 @@ function removeShow(keyboardsettingId){
         {% endif %}
 	</div>
 
-	<button onclick="updateKeyboards();">Save</button>
+	<p><button class="mainbutton" onclick="updateKeyboards();">Save</button></p>
 	<p id="keyboard_success"></p>
 
 </div>

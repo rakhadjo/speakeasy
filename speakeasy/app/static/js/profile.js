@@ -33,8 +33,8 @@ async function sendKeyboards(keyboards) {
 
 function display_response(response) {
 	if (response) {
-		document.getElementById("keyboard_success").innerText = '\u2714';
+		document.getElementById("keyboard_success").innerText = '\u2714 Keyboards saved successfully';
 	} else {
-		document.getElementById("keyboard_success").innerText = '\u2717';
+		document.getElementById("keyboard_success").innerText = '\u2717 Keyboards not saved - please make sure there are no empty sentences or duplicate icons.';
 	}
 }

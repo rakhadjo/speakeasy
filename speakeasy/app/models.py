@@ -8,7 +8,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), unique=True, index=True, nullable=False)
     email = db.Column(db.String(120), index=True, unique=True, nullable=False)
     password_hash = db.Column(db.String(128))
-    accent = db.Column(db.String(20), default="en-US")
+    accent = db.Column(db.String(20), default="en-US-Wavenet-A")
     gender = db.Column(db.String(20), default="MALE")
     speed = db.Column(db.Float, default=1.0)
 

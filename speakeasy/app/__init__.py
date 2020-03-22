@@ -5,7 +5,7 @@ from google.cloud import texttospeech
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://d44623mw:SpEaKeAsYx4@dbhost.cs.man.ac.uk/2019_comp10120_x4"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:password@localhost/speakeasy"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 speech_client = texttospeech.TextToSpeechClient()
 

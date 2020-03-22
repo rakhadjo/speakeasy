@@ -1,61 +1,92 @@
-window.addEventListener('keydown', windowKeydownHandler, true);
-let last_key_was_space = false;
+let last_state = null;
 
-function windowKeydownHandler(e) {
-    if (e.keyIdentifier == 'U+000A' || e.keyIdentifier == 'Enter' || e.keyCode == 13) {
-        if (e.target.id == "speech_text_input") {
-            play_mp3(e.target.value);
-        }
-    } else if (e.keyCode == 32) {
-		if (e.target.id == "speech_text_input") {
-			if (!last_key_was_space) {
-				//The way I deal with symbols and whitespace depends on /suggest spec.
-				let words = e.target.value.split(" ");
+hotkeys.filter = function(event){
+  var tagName = (event.target || event.srcElement).tagName;
+  hotkeys.setScope(/^(INPUT|TEXTAREA|SELECT)$/.test(tagName) ? 'input' : 'other');
+  return true;
+}
+
+hotkeys('alt+shift+z, alt+shift+x, alt+shift+c, alt+shift+v, alt+shift+b, alt+z, alt+x, alt+c, alt+u, alt+i, alt+o, enter, space', function (e, handler) {
+	switch (handler.key) {
+		case 'alt+shift+z':
+			e.preventDefault();
+			switchKeyboardNull(0);
+			break;
+		case 'alt+shift+x':
+			e.preventDefault();
+			switchKeyboardNull(1);
+			break;
+		case 'alt+shift+c': 
+			e.preventDefault();
+			switchKeyboardNull(2);
+			break;
+		case 'alt+shift+v': 
+			e.preventDefault();
+			switchKeyboardNull(4);
+			break;
+		case 'alt+shift+b': 
+			e.preventDefault();
+			switchKeyboardNull(5);
+			break;
+		case 'alt+z': 
+			e.preventDefault();
+			insert(0, getActivePhrase(0));
+			break;
+		case 'alt+x':
+			e.preventDefault();
+			insert(1, getActivePhrase(1));
+			break;
+		case 'alt+c':
+			e.preventDefault();
+			insert(2, getActivePhrase(2));
+			break;
+		case 'alt+u':
+			e.preventDefault();
+			insert(0, getSuggestedWord(0));
+			break;
+		case 'alt+i':
+			e.preventDefault();
+			insert(1, getSuggestedWord(1));
+			break;
+		case 'alt+o':
+			e.preventDefault();
+			insert(0, getSuggestedWord(2));
+			break;
+		case 'enter':
+			e.preventDefault();
+			play_mp3(e.target.value);
+			break;
+		case 'space':
+			if (last_state != e.target.value.trim()) {
+				let words = e.target.value.trim().split(" ");
 				let user_word = words[words.length - 1];
 				update_suggested_words(user_word);
-				last_key_was_space = true;
+				last_state = e.target.value.trim();
 			}
-		}
-	} else {
-		last_key_was_space = false;
-		if (e.altKey && e.code == "KeyY") {
-			if (!e.shiftKey) {
-				switchKeyboardNull(0);
-			} else {
-				insert(0);
-			}
-		} else if (e.altKey && e.code == "KeyU") {
-			if (!e.shiftKey) {
-				switchKeyboardNull(1);
-			} else {
-				insert(1);
-			}
-		} else if (e.altKey && e.code == "KeyI") {
-			if (!e.shiftKey) {
-				switchKeyboardNull(2);
-			} else {
-				insert(2);
-			}
-		} else if (e.altKey && e.code == "KeyO") {
-			switchKeyboardNull(3);
-		} else if (e.altKey && e.code == "KeyP") {
-			//This does not work as of now
-			switchKeyboardNull(4);
-		}
+			break;
+		default: console.log("charrr"); last_key_was_space = false;
 	}
-}
+});
 
 function switchKeyboardNull(i) {
 	if (document.getElementById("keyboard" + i))
 		switchKeyboard(i);
 }
 
-function insert(i) {
+function getSuggestedWord(i) {
+	return document.getElementById("suggest" + String(i + 1)).textContent;
+}
+
+function getActivePhrase(i) {
 	let keyboard_id = document.getElementsByClassName("active")[0].id; //Assuming no more actives
 	let keyboard_i = Number(keyboard_id[keyboard_id.length - 1]); //keyboards.length <= 5
 	let keyboard = document.getElementById("keyboard" + keyboard_i);
 	let phrase_elements = keyboard.getElementsByClassName("phrase");
 	let phrase = phrase_elements[i].innerHTML;
+	return phrase;
+}
+
+function insert(i, phrase) {
 	let old_text = document.getElementById("speech_text_input").value;
 	let new_text;
 	if (old_text.length > 0) {
