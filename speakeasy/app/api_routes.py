@@ -41,7 +41,6 @@ def speak():
 @app.route("/suggest", methods=["POST"])
 def suggest():
     user_words = request.get_json()["user_words"]
-    print(user_words)
     suggested_words = suggester.prediction(user_words)
     return jsonify(suggested_words=suggested_words)
 
