@@ -18,9 +18,9 @@ login = LoginManager(app)
 login.login_view = "login"
 
 DEFAULT_KEYBOARDS = {
-        "U+0FCA": ("Hello world", "This is a test", "test test"),
-        "U+231A": ("blablabla", "hihihi", "huhuhuhuh"),
-        "U+2328": ("zaxzaz", "blop blop", "jujujuju")
+        "U+263B": ("Hello, my name is", "I can't speak because", "I am using this app to communicate"),
+        "U+25F7": ("What time is", "When are we going to", "When is our next class?"),
+        "U+1F374": ("What are you eating for lunch?", "When is lunchtime?", "What time shall we meet?")
         }
 
 from app import routes, api_routes, models
