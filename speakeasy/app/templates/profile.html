@@ -92,8 +92,11 @@ function removeShow(keyboardsettingId){
             break;
 		}
 	}
-    if (!document.getElementById("keyboardsetting" + String(4)).classList.contains("show")) {
-        document.getElementById("addButton").style.display = "";
+    for (let i = 0; i < 5; i++) {
+        if (!document.getElementById("keyboardsetting" + String(i)).classList.contains("show")) {
+            document.getElementById("addButton").style.display = "";
+            break;
+        }
     }
 }
 
