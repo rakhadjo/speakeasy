@@ -54,7 +54,12 @@ hotkeys('alt+shift+z, alt+shift+x, alt+shift+c, alt+shift+v, alt+shift+b, alt+z,
 			break;
 		case 'enter':
 			e.preventDefault();
-			play_mp3(e.target.value);
+			let lines = e.target.value.split("\n");
+			play_mp3(lines[lines.length - 1]);
+			document.getElementById("speech_text_input").value = document.getElementById("speech_text_input").value+"\n";
+			let words = e.target.value.trim().split(".");
+			let user_word = words[words.length - 1];
+			update_suggested_words(user_word);
 			break;
 		case 'space':
 			if (last_state != e.target.value.trim()) {
@@ -90,11 +95,14 @@ function insert(i, phrase) {
 	let old_text = document.getElementById("speech_text_input").value;
 	let new_text;
 	if (old_text.length > 0) {
-		new_text = old_text.trim() + " " + phrase;
+		new_text = old_text + phrase + " ";
 	} else {
-		new_text = phrase;
+		new_text = phrase + " ";
 	}
 	document.getElementById("speech_text_input").value = new_text;
+	let words = new_text.trim().split(".");
+	let user_word = words[words.length - 1];
+	update_suggested_words(user_word);
 }
 
 function click_handler(e) {
